@@ -9,29 +9,52 @@ const registerStyles = StyleSheet.create({
       justifyContent: 'flex-end',
     },
     container: {
-      flex: 0.93,
+      flex: 1,
       width: '100%',
       borderBottomLeftRadius: 70,
       borderBottomRightRadius: 70,
       overflow: 'hidden',
-    },
-    backgroundImage: {
-      flex: 1,
-      resizeMode: 'cover',
     },
     scrollContainer: {
       flex: 1,
       marginTop: 95,
     },
     scrollView: {
-      paddingHorizontal: 40,
-      paddingBottom: 60,
+      paddingHorizontal: 10,
+      paddingBottom: 70,
+    },
+    containerForm: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginHorizontal: 40,
+    },
+    containerBottomForm: {
+      flex: 1,
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      borderRadius: 50,
+      marginTop: 20,
+      paddingVertical: 15,
+      alignItems: 'center',
+    },
+    textContainerBottomForm:
+    {
+      color: "#000000",
+      fontSize: 20,
+      fontFamily: 'Comfortaa',
+      marginBttom: 15, 
+    },
+    backgroundImage: {
+      flex: 1,
+      resizeMode: 'cover',
     },
     input: {
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
       color: '#000',
+      width: '100%',
       padding: 10,
-      marginVertical: 10,
+      marginVertical: 5,
       borderRadius: 10,
       fontSize: 16,
       fontFamily: 'Comfortaa'
@@ -47,24 +70,21 @@ const registerStyles = StyleSheet.create({
     labelAddressNumber: {
       color: '#ffffff',
     },
-    containerForm: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    },
     labelRightSelector: {
       width: '30%',
       color: '#ffffff',
       fontFamily: 'Comfortaa',
       fontSize: 16,
     },
+    labelRightSelectorBottomForm:{
+      color: '#000000',
+    },
     pickerContainer: {
       width: '70%',
       height: 50,
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
       borderRadius: 10,
-      marginVertical: 10,
+      marginVertical: 5,
       overflow: 'hidden',  // Asegura que el contenido se ajuste al borde redondeado
     },
     pickerContainer2: {
@@ -72,7 +92,7 @@ const registerStyles = StyleSheet.create({
       height: 50,
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
       borderRadius: 10,
-      marginVertical: 10,
+      marginVertical: 5,
       overflow: 'hidden',  // Asegura que el contenido se ajuste al borde redondeado
     },
     pickerRight: {

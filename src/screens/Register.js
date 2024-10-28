@@ -23,7 +23,7 @@ export default function Register({ navigation }) {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 50 : 0} // Ajusta este valor según la altura del header
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
         <View style={registerStyles.wrapper}>
           <View style={registerStyles.container}>
             <ImageBackground 
@@ -71,21 +71,30 @@ export default function Register({ navigation }) {
                     </View>
                   </View> 
 
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Codigo del recibo de aseo"
-                    placeholderTextColor="#176b00"
-                  />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Nombre"
-                    placeholderTextColor="#176b00"
-                  />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Apellido"
-                    placeholderTextColor="#176b00"
-                  />
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Codigo del recibo de aseo"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Nombre"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+                  
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Apellido"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+
                   <View style={registerStyles.containerForm}>
                     <TextInput
                       style={[registerStyles.input, registerStyles.inputAddress]}
@@ -147,27 +156,105 @@ export default function Register({ navigation }) {
                     </View>
                   </View> 
 
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Teléfono"
-                    placeholderTextColor="#176b00"
-                  />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Email"
-                    placeholderTextColor="#176b00"
-                  />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="No. Personas generadoras de residuos"
-                    placeholderTextColor="#176b00"
-                  />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Contraseña"
-                    placeholderTextColor="#176b00"
-                  />
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Teléfono"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
 
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Email"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="No. Personas generadoras de residuos"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={registerStyles.input}
+                      placeholder="Contraseña"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
+
+                  <View style={registerStyles.containerBottomForm}>
+                    
+                    <View style={registerStyles.containerForm}>
+                      <Text style={registerStyles.textContainerBottomForm}>Info Institucional</Text>
+                    </View>
+                    
+                    <View style={registerStyles.containerForm}>
+                      <Text style={[registerStyles.labelRightSelector, registerStyles.labelRightSelectorBottomForm]}>Tipo</Text>
+                      <View style={registerStyles.pickerContainer}>
+                      <Picker
+                        style={registerStyles.pickerRight}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue) => setSelectedType(itemValue)}
+                      >
+                        <Picker.Item label="Residencial" value="Residencial" />
+                        <Picker.Item label="Comercial" value="Comercial" />
+                        <Picker.Item label="Industrial" value="Industrial" />
+                      </Picker>
+                      </View>
+                    </View> 
+
+                    <View style={registerStyles.containerForm}>
+                      <Text style={[registerStyles.labelRightSelector, registerStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                      <View style={registerStyles.pickerContainer}>
+                      <Picker
+                        style={registerStyles.pickerRight}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue) => setSelectedType(itemValue)}
+                      >
+                        <Picker.Item label="Residencial" value="Residencial" />
+                        <Picker.Item label="Comercial" value="Comercial" />
+                        <Picker.Item label="Industrial" value="Industrial" />
+                      </Picker>
+                      </View>
+                    </View> 
+
+                    <View style={registerStyles.containerForm}>
+                      <Text style={[registerStyles.labelRightSelector, registerStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                      <View style={registerStyles.pickerContainer}>
+                      <Picker
+                        style={registerStyles.pickerRight}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue) => setSelectedType(itemValue)}
+                      >
+                        <Picker.Item label="Residencial" value="Residencial" />
+                        <Picker.Item label="Comercial" value="Comercial" />
+                        <Picker.Item label="Industrial" value="Industrial" />
+                      </Picker>
+                      </View>
+                    </View> 
+
+                    <View style={registerStyles.containerForm}>
+                      <Text style={[registerStyles.labelRightSelector, registerStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                      <View style={registerStyles.pickerContainer}>
+                      <Picker
+                        style={registerStyles.pickerRight}
+                        selectedValue={selectedType}
+                        onValueChange={(itemValue) => setSelectedType(itemValue)}
+                      >
+                        <Picker.Item label="Residencial" value="Residencial" />
+                        <Picker.Item label="Comercial" value="Comercial" />
+                        <Picker.Item label="Industrial" value="Industrial" />
+                      </Picker>
+                      </View>
+                    </View> 
+
+                  </View>
                   {/* Puedes añadir más inputs si lo necesitas */}
                 </ScrollView>
               </View>
@@ -184,7 +271,7 @@ export default function Register({ navigation }) {
               <ButtonRegister />
           </View>
         </View>
-      </TouchableWithoutFeedback>
+
     </KeyboardAvoidingView>
   );
 }
