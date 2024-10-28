@@ -36,25 +36,16 @@ const registerStyles = StyleSheet.create({
       fontSize: 16,
       fontFamily: 'Comfortaa'
     },
-    additionalContainer: {
-      flex: 0.07,
-      backgroundColor: '#f8f8ff8',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderTopLeftRadius: 0,
-      borderTopRightRadius: 0,
+    inputAddress: {
+      width: '40%',
+      marginRight: 10,
     },
-    additionalText: {
-      color: '#333',
-      fontSize: 16,
+    inputAddressNumber:{
+      width: '15%',
+      textAlign: 'center',
     },
-    buttonsContainer: {
-      position: 'absolute',
-      bottom: -30,
-      left: 0,
-      right: 0,
-      alignItems: 'center',
-      zIndex: 3,
+    labelAddressNumber: {
+      color: '#ffffff',
     },
     containerForm: {
       flex: 1,
@@ -87,6 +78,26 @@ const registerStyles = StyleSheet.create({
     pickerRight: {
       color: '#000',
       padding: 10,
+    },
+    additionalContainer: {
+      flex: 0.07,
+      backgroundColor: '#f8f8ff8',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
+    },
+    additionalText: {
+      color: '#333',
+      fontSize: 16,
+    },
+    buttonsContainer: {
+      position: 'absolute',
+      bottom: -30,
+      left: 0,
+      right: 0,
+      alignItems: 'center',
+      zIndex: 3,
     },  
 })
 

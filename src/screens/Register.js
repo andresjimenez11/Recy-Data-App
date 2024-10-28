@@ -86,11 +86,36 @@ export default function Register({ navigation }) {
                     placeholder="Apellido"
                     placeholderTextColor="#176b00"
                   />
-                  <TextInput
-                    style={registerStyles.input}
-                    placeholder="Autopista"
-                    placeholderTextColor="#176b00"
-                  />
+                  <View style={registerStyles.containerForm}>
+                    <TextInput
+                      style={[registerStyles.input, registerStyles.inputAddress]}
+                      placeholder="Autopista"
+                      placeholderTextColor="#176b00"
+                    />
+                    <TextInput
+                      style={[registerStyles.input, registerStyles.inputAddressNumber]}
+                      placeholder="00"
+                      placeholderTextColor="#176b00"
+                    />
+                    <Text
+                    style={registerStyles.labelAddressNumber}>
+                      #
+                    </Text>
+                    <TextInput
+                      style={[registerStyles.input, registerStyles.inputAddressNumber]}
+                      placeholder="00"
+                      placeholderTextColor="#176b00"
+                    />
+                    <Text
+                    style={registerStyles.labelAddressNumber}>
+                      -
+                    </Text>
+                    <TextInput
+                      style={[registerStyles.input, registerStyles.inputAddressNumber]}
+                      placeholder="00"
+                      placeholderTextColor="#176b00"
+                    />
+                  </View>
                   
                   
                   <View style={registerStyles.containerForm}>
