@@ -11,7 +11,7 @@ import Overlay from '../components/Overlay';
 
 export default function Register({ navigation }) {
 
-  const [selectedType, setSelectedType] = useState('Residencial');
+  const [selectedType, setSelectedType] = useState('');
   const [selectedStratum, setSelectedStratum] = useState('Estrato 1');
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1');
   const [selectedCity, setSelectedCity] = useState('Bucaramanga');
@@ -45,7 +45,7 @@ export default function Register({ navigation }) {
                       selectedValue={selectedType}
                       onValueChange={(itemValue) => setSelectedType(itemValue)}
                     >
-                      <Picker.Item label="Residencial" value="Residencial" />
+                      <Picker.Item label="Residencial" value="Residencial"/>
                       <Picker.Item label="Comercial" value="Comercial" />
                       <Picker.Item label="Industrial" value="Industrial" />
                     </Picker>

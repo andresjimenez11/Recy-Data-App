@@ -21,7 +21,7 @@ const registerStyles = StyleSheet.create({
     },
     scrollView: {
       paddingHorizontal: 10,
-      paddingBottom: 70,
+      paddingBottom: 0,
     },
     containerForm: {
       flex: 1,
@@ -34,8 +34,11 @@ const registerStyles = StyleSheet.create({
       flex: 1,
       backgroundColor: 'rgba(255, 255, 255, 0.5)',
       borderRadius: 50,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
       marginTop: 20,
-      paddingVertical: 15,
+      paddingTop: 15,
+      paddingBottom: 50,
       alignItems: 'center',
     },
     textContainerBottomForm:
@@ -43,7 +46,7 @@ const registerStyles = StyleSheet.create({
       color: "#000000",
       fontSize: 20,
       fontFamily: 'Comfortaa',
-      marginBttom: 15, 
+      marginBottom: 10, 
     },
     backgroundImage: {
       flex: 1,
@@ -51,7 +54,7 @@ const registerStyles = StyleSheet.create({
     },
     input: {
       backgroundColor: 'rgba(255, 255, 255, 0.8)',
-      color: '#000',
+      color: '#176b00',
       width: '100%',
       padding: 10,
       marginVertical: 5,
@@ -96,8 +99,9 @@ const registerStyles = StyleSheet.create({
       overflow: 'hidden',  // Asegura que el contenido se ajuste al borde redondeado
     },
     pickerRight: {
-      color: '#000',
+      color: '#176b00',
       padding: 10,
+      fontFamily: 'Comfortaa',
     },
     additionalContainer: {
       flex: 0.07,
