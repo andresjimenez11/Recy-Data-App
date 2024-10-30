@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Main from './src/screens/Main';
 import Register from './src/screens/Register';
+import Login from './src/screens/Login';
 import ResetPassword from './src/screens/ResetPassword';
 import Home from './src/screens/Home';
 import { useFonts } from 'expo-font';
@@ -51,6 +52,7 @@ export default function App() {
       }}>
         <Stack.Screen name="Main" component={Main} options={{ headerShown: false, title: 'Main' }}/>
         <Stack.Screen name="Register" component={Register} options={{ headerShown: true, title: 'Registro'}}/>
+        <Stack.Screen name="Login" component={Login} options={{ title: 'Inicio de sesión' }}/>
         <Stack.Screen name="ResetPassword"
           component={ResetPassword}
           options={{
