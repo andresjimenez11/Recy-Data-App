@@ -6,12 +6,11 @@ import formStyles from '../styles/formStyles';
 
 import colors from '../themes/colors';
 
-export default function FormResidential() {
+export default function FormConsultory() {
 
   const [selectedSubType, setSelectedSubType] = useState('Estrato 1');
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1');
   const [selectedCity, setSelectedCity] = useState('Bucaramanga');
-
 
   return (
 
@@ -145,10 +144,76 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    style={[formStyles.input, formStyles.inputPassword]}
+                    style={formStyles.input}
                     placeholder="Contraseña"
                     placeholderTextColor={colors.primary}
                 />
+            </View>
+
+            <View style={formStyles.containerBottomForm}> 
+                <View style={formStyles.containerForm}>
+                    <Text style={formStyles.textContainerBottomForm}>Info Institucional</Text>
+                </View>
+                
+                <View style={formStyles.containerForm}>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Tipo</Text>
+                    <View style={formStyles.pickerContainer}>
+                    <Picker
+                    style={formStyles.pickerRight}
+                    selectedValue={selectedCity}
+                    onValueChange={(itemValue) => setSelectedType(itemValue)}
+                    >
+                    <Picker.Item label="Residencial" value="Residencial" />
+                    <Picker.Item label="Comercial" value="Comercial" />
+                    <Picker.Item label="Industrial" value="Industrial" />
+                    </Picker>
+                    </View>
+                </View> 
+
+                <View style={formStyles.containerForm}>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                    <View style={formStyles.pickerContainer}>
+                    <Picker
+                    style={formStyles.pickerRight}
+                    selectedValue={selectedCity}
+                    onValueChange={(itemValue) => setSelectedType(itemValue)}
+                    >
+                    <Picker.Item label="Residencial" value="Residencial" />
+                    <Picker.Item label="Comercial" value="Comercial" />
+                    <Picker.Item label="Industrial" value="Industrial" />
+                    </Picker>
+                    </View>
+                </View> 
+
+                <View style={formStyles.containerForm}>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                    <View style={formStyles.pickerContainer}>
+                    <Picker
+                    style={formStyles.pickerRight}
+                    selectedValue={selectedCity}
+                    onValueChange={(itemValue) => setSelectedType(itemValue)}
+                    >
+                    <Picker.Item label="Residencial" value="Residencial" />
+                    <Picker.Item label="Comercial" value="Comercial" />
+                    <Picker.Item label="Industrial" value="Industrial" />
+                    </Picker>
+                    </View>
+                </View> 
+
+                <View style={formStyles.containerForm}>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                    <View style={formStyles.pickerContainer}>
+                    <Picker
+                    style={formStyles.pickerRight}
+                    selectedValue={selectedCity}
+                    onValueChange={(itemValue) => setSelectedType(itemValue)}
+                    >
+                    <Picker.Item label="Residencial" value="Residencial" />
+                    <Picker.Item label="Comercial" value="Comercial" />
+                    <Picker.Item label="Industrial" value="Industrial" />
+                    </Picker>
+                    </View>
+                </View> 
             </View>
         </View>
 

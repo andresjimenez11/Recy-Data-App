@@ -9,7 +9,11 @@ import { Picker } from '@react-native-picker/picker';
 /* Componentes */
 import ButtonRegister from '../components/ButtonRegister';
 import FormResidential from '../components/FormResidential';
+import FormPublicServant from '../components/FormPublicServant';
 import FormNoResidential from '../components/FormNoResidential';
+import FormAcademy from '../components/FormAcademy';
+import FormChain from '../components/FormChain';
+import FormConsultory from '../components/FormConsultory';
 import Overlay from '../components/Overlay';
 
 /* Estilos */
@@ -51,7 +55,7 @@ export default function Register({ navigation }) {
                       <Picker.Item label="Residencial" value="Residencial"/>
                       <Picker.Item label="Servidor Público" value="Servidor Público"/>
                       <Picker.Item label="No Residencial" value="No Residencial" />
-                      <Picker.Item label="Academia" value="Industrial" />
+                      <Picker.Item label="Academia" value="Academia" />
                       <Picker.Item label="Cadena de Aprovechamiento" value="Cadena de Aprovechamiento" />
                       <Picker.Item label="Consultoría" value="Consultoría" />
                     </Picker>
@@ -62,10 +66,25 @@ export default function Register({ navigation }) {
                     <FormResidential/>
                   )}
 
+                  {selectedType === 'Servidor Público' && (
+                    <FormPublicServant/>
+                  )}
+
                   {selectedType === 'No Residencial' && (
                     <FormNoResidential/>
                   )}
-                  
+
+                  {selectedType === 'Academia' && (
+                    <FormAcademy/>
+                  )}
+
+                  {selectedType === 'Cadena de Aprovechamiento' && (
+                    <FormChain/>
+                  )}
+
+                  {selectedType === 'Consultoría' && (
+                    <FormConsultory/>
+                  )}
                   
                 </ScrollView>
               </View>

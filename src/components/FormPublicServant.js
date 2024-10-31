@@ -6,12 +6,11 @@ import formStyles from '../styles/formStyles';
 
 import colors from '../themes/colors';
 
-export default function FormChainOfUse() {
+export default function FormPublicServant() {
 
-  const [selectedSubType, setSelectedSubType] = useState('Industrial');
+  const [selectedSubType, setSelectedSubType] = useState('Estrato 1');
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1');
   const [selectedCity, setSelectedCity] = useState('Bucaramanga');
-
 
   return (
 
@@ -24,10 +23,12 @@ export default function FormChainOfUse() {
                     selectedValue={selectedSubType}
                     onValueChange={(itemValue) => setSelectedSubType(itemValue)}
                 >
-                    <Picker.Item label="Industrial" value="Industrial" />
-                    <Picker.Item label="Comercial" value="Comercial" />
-                    <Picker.Item label="Institucional" value="Institucional" />
-
+                    <Picker.Item label="Estrato 1" value="Estrato 1" />
+                    <Picker.Item label="Estrato 2" value="Estrato 2" />
+                    <Picker.Item label="Estrato 3" value="Estrato 3" />
+                    <Picker.Item label="Estrato 4" value="Estrato 4" />
+                    <Picker.Item label="Estrato 5" value="Estrato 5" />
+                    <Picker.Item label="Estrato 6" value="Estrato 6" />
                 </Picker>
                 </View>
             </View> 
@@ -59,7 +60,7 @@ export default function FormChainOfUse() {
             <View style={formStyles.containerForm}>
                 <TextInput
                     style={[formStyles.input, formStyles.inputAddress]}
-                    placeholder="Autopista"
+                    placeholder="Calle"
                     placeholderTextColor={colors.primary}
                 />
                 <TextInput
@@ -143,76 +144,10 @@ export default function FormChainOfUse() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    style={formStyles.input}
+                    style={[formStyles.input, formStyles.inputPassword]}
                     placeholder="Contraseña"
                     placeholderTextColor={colors.primary}
                 />
-            </View>
-
-            <View style={formStyles.containerBottomForm}> 
-                <View style={formStyles.containerForm}>
-                    <Text style={formStyles.textContainerBottomForm}>Info Institucional</Text>
-                </View>
-                
-                <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Tipo</Text>
-                    <View style={formStyles.pickerContainer}>
-                    <Picker
-                    style={formStyles.pickerRight}
-                    selectedValue={selectedCity}
-                    onValueChange={(itemValue) => setSelectedType(itemValue)}
-                    >
-                    <Picker.Item label="Residencial" value="Residencial" />
-                    <Picker.Item label="Comercial" value="Comercial" />
-                    <Picker.Item label="Industrial" value="Industrial" />
-                    </Picker>
-                    </View>
-                </View> 
-
-                <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
-                    <View style={formStyles.pickerContainer}>
-                    <Picker
-                    style={formStyles.pickerRight}
-                    selectedValue={selectedCity}
-                    onValueChange={(itemValue) => setSelectedType(itemValue)}
-                    >
-                    <Picker.Item label="Residencial" value="Residencial" />
-                    <Picker.Item label="Comercial" value="Comercial" />
-                    <Picker.Item label="Industrial" value="Industrial" />
-                    </Picker>
-                    </View>
-                </View> 
-
-                <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
-                    <View style={formStyles.pickerContainer}>
-                    <Picker
-                    style={formStyles.pickerRight}
-                    selectedValue={selectedCity}
-                    onValueChange={(itemValue) => setSelectedType(itemValue)}
-                    >
-                    <Picker.Item label="Residencial" value="Residencial" />
-                    <Picker.Item label="Comercial" value="Comercial" />
-                    <Picker.Item label="Industrial" value="Industrial" />
-                    </Picker>
-                    </View>
-                </View> 
-
-                <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
-                    <View style={formStyles.pickerContainer}>
-                    <Picker
-                    style={formStyles.pickerRight}
-                    selectedValue={selectedCity}
-                    onValueChange={(itemValue) => setSelectedType(itemValue)}
-                    >
-                    <Picker.Item label="Residencial" value="Residencial" />
-                    <Picker.Item label="Comercial" value="Comercial" />
-                    <Picker.Item label="Industrial" value="Industrial" />
-                    </Picker>
-                    </View>
-                </View> 
             </View>
         </View>
 
