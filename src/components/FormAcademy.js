@@ -14,7 +14,7 @@ export default function FormAcademy() {
   const [selectedCity, setSelectedCity] = useState('Bucaramanga');
 
   /* Estados Contenedor Info Institucional */
-  const [selectedTypeInfo, setSelectedTypeInfo] = useState('');
+  const [selectedTypeInfo, setSelectedTypeInfo] = useState('Primaria');
   const [selectedNameInfo, setSelectedNameInfo] = useState('');
   const [selectedGradeInfo, setSelectedGradeInfo] = useState('');
   const [selectedCourseInfo, setSelectedCourseInfo] = useState('');
@@ -63,7 +63,7 @@ export default function FormAcademy() {
             <View style={formStyles.containerForm}>
                 <TextInput
                     style={[formStyles.input, formStyles.inputAddress]}
-                    placeholder="Autopista"
+                    placeholder="Calle"
                     placeholderTextColor={colors.primary}
                 />
                 <TextInput
@@ -213,7 +213,7 @@ export default function FormAcademy() {
                         <Picker
                         style={formStyles.pickerRight}
                         selectedValue={selectedCourseInfo}
-                        onValueChange={(itemValue) => selectedCourseInfo(itemValue)}
+                        onValueChange={(itemValue) => setSelectedCourseInfo(itemValue)}
                         >
                             <Picker.Item label="Curso" value="Curso" />
                             <Picker.Item label="Curso" value="Curso" />
@@ -266,7 +266,7 @@ export default function FormAcademy() {
                         <Picker
                         style={formStyles.pickerRight}
                         selectedValue={selectedCourseInfo}
-                        onValueChange={(itemValue) => selectedCourseInfo(itemValue)}
+                        onValueChange={(itemValue) => setSelectedCourseInfo(itemValue)}
                         >
                             <Picker.Item label="Curso" value="Curso" />
                             <Picker.Item label="Curso" value="Curso" />
@@ -304,9 +304,9 @@ export default function FormAcademy() {
                             selectedValue={selectedGradeInfo}
                             onValueChange={(itemValue) => setSelectedGradeInfo(itemValue)}
                             >
-                                <Picker.Item label="Curso" value="Curso" />
-                                <Picker.Item label="Curso" value="Curso" />
-                                <Picker.Item label="Curso" value="Curso" />
+                                <Picker.Item label="Grado" value="Grado" />
+                                <Picker.Item label="Grado" value="Grado" />
+                                <Picker.Item label="Grado" value="Grado" />
                             </Picker>
                             </View>
                         </View> 
@@ -317,11 +317,11 @@ export default function FormAcademy() {
                             <Picker
                             style={formStyles.pickerRight}
                             selectedValue={selectedCourseInfo}
-                            onValueChange={(itemValue) => selectedCourseInfo(itemValue)}
+                            onValueChange={(itemValue) => setSelectedCourseInfo(itemValue)}
                             >
-                                <Picker.Item label="Residencial" value="Residencial" />
-                                <Picker.Item label="Comercial" value="Comercial" />
-                                <Picker.Item label="Industrial" value="Industrial" />
+                                <Picker.Item label="Curso" value="Curso" />
+                                <Picker.Item label="Curso" value="Curso" />
+                                <Picker.Item label="Curso" value="Curso" />
                             </Picker>
                             </View>
                         </View> 
