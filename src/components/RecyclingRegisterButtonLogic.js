@@ -1,6 +1,9 @@
 import { launchCamera } from 'react-native-image-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import React from 'react';
 
-export const getButtonContent = (index) => {
+export const getButtonContent = (index, setDate, date, setShowDatePicker) => {
+  // Función para abrir la cámara
   const openCamera = () => {
     const options = {
       mediaType: 'photo',
@@ -14,10 +17,30 @@ export const getButtonContent = (index) => {
         console.error("Error al abrir la cámara:", response.errorMessage);
       } else {
         console.log("Foto capturada:", response.assets[0].uri);
-        // Puedes manejar la imagen capturada aquí
+        // manejar la imagen capturada aquí
       }
     });
   };
+
+  // Función para manejar el cambio de fecha
+  const handleDateChange = (event, selectedDate) => {
+    setShowDatePicker(false); // Ocultar el DatePicker
+    if (event.type === 'set') {
+      setDate(selectedDate); // Establecer la fecha seleccionada
+    }
+  };
+
+  // Componente del DateTimePicker
+  const datePicker = (
+    <DateTimePicker
+      testID='dateTimePicker'
+      value={date}
+      mode='date'
+      is24Hour={true}
+      display='default'
+      onChange={handleDateChange}
+    />
+  );
 
   switch (index) {
     case 1:
@@ -38,6 +61,12 @@ export const getButtonContent = (index) => {
         text: 'Restos de comida, residuos de corte de césped y poda de jardín, etc.',
         onPress: openCamera,
       };
+    case 4: // Añadir lógica para el botón de fecha
+      return {
+        imageSource: null,
+        text: 'Seleccionar fecha',
+        onPress: () => setShowDatePicker(true), // Mostrar el DatePicker
+      };
     default:
       return {
         imageSource: null,
@@ -45,4 +74,20 @@ export const getButtonContent = (index) => {
         onPress: () => console.log("Botón sin acción asignada"),
       };
   }
+};
+
+// Exportar el DatePicker como parte de la función si es necesario
+export const getDatePicker = (showDatePicker, date, setShowDatePicker, setDate) => {
+  return (
+    showDatePicker && (
+      <DateTimePicker
+        testID='dateTimePicker'
+        value={date}
+        mode='date'
+        is24Hour={true}
+        display='default'
+        onChange={(event, selectedDate) => handleDateChange(event, selectedDate, setShowDatePicker, setDate)}
+      />
+    )
+  );
 };
