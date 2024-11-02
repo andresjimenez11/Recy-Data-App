@@ -6,6 +6,7 @@ import Main from './src/screens/Main';
 import Register from './src/screens/Register';
 import ResetPassword from './src/screens/ResetPassword';
 import Home from './src/screens/Home';
+import RecyclingRecords from './src/screens/RecyclingRecords'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StyleSheet, Text } from 'react-native';
@@ -51,7 +52,7 @@ export default function App() {
       }}>
         <Stack.Screen name="Main" component={Main} options={{ headerShown: false, title: 'Main' }}/>
         <Stack.Screen name="Register" component={Register} options={{ headerShown: true, title: 'Registro'}}/>
-        <Stack.Screen name="ResetPassword"
+        <Stack.Screen name="ResetPassword" 
           component={ResetPassword}
           options={{
             headerShown: true,
@@ -61,6 +62,7 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="RecyclingRecords" component={RecyclingRecords}options={{title: 'Registro de reciclaje'}}/>
       </Stack.Navigator>
     );
   }

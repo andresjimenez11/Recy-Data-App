@@ -10,7 +10,7 @@ export default function ButtonLogin() {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('RecyclingRecords')}>
             <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
     )
