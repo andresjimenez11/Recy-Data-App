@@ -8,10 +8,11 @@ import Login from './src/screens/Login';
 import ResetPassword from './src/screens/ResetPassword';
 import Home from './src/screens/Home';
 import RecyclingRecords from './src/screens/RecyclingRecords'
-import RecyclingRecords from './src/screens/RecyclingRecords'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StyleSheet, Text } from 'react-native';
+import MainMenu from './src/screens/MainMenu';
+import RecyclingRecordsList from './src/screens/RecyclingRecordsList';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -65,7 +66,9 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="MainMenu" component={MainMenu}options={{title: 'Menu principal'}}/>
         <Stack.Screen name="RecyclingRecords" component={RecyclingRecords}options={{title: 'Registro de reciclaje'}}/>
+        <Stack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList}options={{title: "Lista de Registros de Reciclaje"}}/>
       </Stack.Navigator>
     );
   }
