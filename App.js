@@ -58,7 +58,7 @@ export default function App() {
     return (
       <AppStack.Navigator screenOptions={stackScreenOptions}>
         <AppStack.Screen name="Home" component={Home} />
-        <AppStack.Screen name="MainMenu" component={MainMenu} options={{ title: 'Menu principal' }} />
+        <AppStack.Screen name="MainMenu" component={MainMenu} options={{ headerShown: false, title: 'Menu principal' }} />
         <AppStack.Screen name="RecyclingRecords" component={RecyclingRecords} options={{ title: 'Registro de reciclaje' }} />
         <AppStack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList} options={{ title: "Lista de Registros de Reciclaje" }} />
       </AppStack.Navigator>
