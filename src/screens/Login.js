@@ -58,7 +58,10 @@ export default function Login({navigation}){
 
                 <View style={loginStyles.buttonsContainer}>
           
-                    <ButtonLogin/>
+                    <ButtonLogin 
+                        stack='App'
+                        targetScreen='MainMenu'
+                    />
 
                     <ButtonRegister/>
                 
