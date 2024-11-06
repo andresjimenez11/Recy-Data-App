@@ -33,7 +33,10 @@ export default function Main({navigation}){
         {/* Contenedor de botones y enlace */}
         <View style={mainStyles.buttonsContainer}>
           
-          <ButtonLogin/>
+          <ButtonLogin 
+            stack='Auth'
+            targetScreen='Login'
+          />
 
           <ButtonRegister/>
   
