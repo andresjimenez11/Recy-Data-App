@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import strings from '../util/strings'
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
@@ -11,7 +12,7 @@ export default function ButtonLogin({stack, targetScreen}) {
 
     return (
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate(stack, { screen: targetScreen })}>
-            <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
+            <Text style={styles.loginButtonText}>{strings.login}</Text>
         </TouchableOpacity>
     )
 }

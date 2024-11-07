@@ -19,6 +19,7 @@ import Overlay from '../components/Overlay';
 /* Estilos */
 import registerStyles from '../styles/registerStyles';
 import formStyles from '../styles/formStyles';
+import strings from '../util/strings';
 
 export default function Register({ navigation }) {
 
@@ -45,7 +46,7 @@ export default function Register({ navigation }) {
                 <ScrollView contentContainerStyle={registerStyles.scrollView}>
 
                   <View style={formStyles.containerForm}>
-                    <Text style={formStyles.labelRightSelector}>Tipo</Text>
+                    <Text style={formStyles.labelRightSelector}>{strings.type}</Text>
                     <View style={formStyles.pickerContainer}>
                     <Picker
                       style={formStyles.pickerRight}

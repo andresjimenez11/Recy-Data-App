@@ -5,6 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import formStyles from '../styles/formStyles';
 
 import colors from '../themes/colors';
+import strings from '../util/strings';
 
 export default function FormNoResidential() {
 
@@ -17,7 +18,7 @@ export default function FormNoResidential() {
 
         <View>
             <View style={formStyles.containerForm}>
-                <Text style={formStyles.labelRightSelector}>Sub Tipo</Text>
+                <Text style={formStyles.labelRightSelector}>{strings.subType}</Text>
                 <View style={formStyles.pickerContainer}>
                 <Picker
                     style={formStyles.pickerRight}

@@ -6,6 +6,7 @@ import ButtonRegister from '../components/ButtonRegister';
 import ButtonResetPassword from '../components/ButtonResetPassword';
 import ForgotPassword from '../components/ForgotPassword';
 import Overlay from '../components/Overlay';
+import strings from '../util/strings';
 
 
 export default function Login({navigation}){
@@ -46,7 +47,7 @@ export default function Login({navigation}){
                             onPress={() => setIsSelected(!isSelected)}
                             >
                             <View style={[loginStyles.circle, isSelected && loginStyles.circleSelected]} />
-                            <Text style={loginStyles.text}>Recordar usuario</Text>
+                            <Text style={loginStyles.text}>{strings.rememberUser}</Text>
                         </TouchableOpacity>
 
                         <ForgotPassword style={loginStyles.forgotPassword}/>

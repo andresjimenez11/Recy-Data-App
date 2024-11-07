@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import strings from '../util/strings';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
@@ -11,7 +12,7 @@ export default function ForgotPassword() {
 
     return (
         <TouchableOpacity>
-            <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ResetPassword')}>¿Olvidó su contraseña?</Text>
+            <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ResetPassword')}>{strings.forgotPassword}</Text>
         </TouchableOpacity>
     )
 }

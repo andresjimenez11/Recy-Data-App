@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import strings from '../util/strings';
 
 import formStyles from '../styles/formStyles';
 
@@ -16,7 +17,7 @@ export default function FormConsultory() {
 
         <View>
             <View style={formStyles.containerForm}>
-                <Text style={formStyles.labelRightSelector}>Sub Tipo</Text>
+                <Text style={formStyles.labelRightSelector}>{strings.subType}</Text>
                 <View style={formStyles.pickerContainer}>
                 <Picker
                     style={formStyles.pickerRight}
@@ -152,11 +153,11 @@ export default function FormConsultory() {
 
             <View style={formStyles.containerBottomForm}> 
                 <View style={formStyles.containerForm}>
-                    <Text style={formStyles.textContainerBottomForm}>Info Institucional</Text>
+                    <Text style={formStyles.textContainerBottomForm}>{strings.institutionalInfo}</Text>
                 </View>
                 
                 <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Tipo</Text>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.type}</Text>
                     <View style={formStyles.pickerContainer}>
                     <Picker
                     style={formStyles.pickerRight}
@@ -171,7 +172,7 @@ export default function FormConsultory() {
                 </View> 
 
                 <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.name}</Text>
                     <View style={formStyles.pickerContainer}>
                     <Picker
                     style={formStyles.pickerRight}
@@ -186,7 +187,7 @@ export default function FormConsultory() {
                 </View> 
 
                 <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.grade}</Text>
                     <View style={formStyles.pickerContainer}>
                     <Picker
                     style={formStyles.pickerRight}
@@ -201,7 +202,7 @@ export default function FormConsultory() {
                 </View> 
 
                 <View style={formStyles.containerForm}>
-                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                    <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.schoolGrade}</Text>
                     <View style={formStyles.pickerContainer}>
                     <Picker
                     style={formStyles.pickerRight}
