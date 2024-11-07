@@ -1,4 +1,3 @@
-import AboutUs from "../screens/AboutUs";
 
 const strings = {
     registerRecycling: "Registrar Reciclaje",
@@ -37,7 +36,8 @@ const strings = {
     mainMenu: 'Menu principal',
     recyclingRecord: 'Registro de reciclaje',
     recyclingRecordList: 'Lista de Registros de Reciclaje',
-    AboutUs: 'Acerca de nosotros'
+    AboutUs: 'Acerca de nosotros',
+    register: 'Registro'
     
 
     // Agrega más cadenas según sea necesario

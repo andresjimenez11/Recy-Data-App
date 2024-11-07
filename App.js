@@ -15,6 +15,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StyleSheet, Text } from 'react-native';
 import AboutUs from './src/screens/AboutUs';
 import strings from './src/util/strings';
+import Statistics from './src/screens/Statistics'; 
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -64,6 +66,7 @@ export default function App() {
         <AppStack.Screen name="RecyclingRecords" component={RecyclingRecords} options={{ title: strings.recyclingRecord }} />
         <AppStack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList} options={{ title: strings.recyclingRecordList }} />
         <AppStack.Screen name="AboutAs" component={AboutUs} options={{title: strings.AboutUs}}/>
+        <AppStack.Screen name="Statistics" component={Statistics} options={{headerShow: true, title: strings.statistics}}/>
       </AppStack.Navigator>
     );
   }
