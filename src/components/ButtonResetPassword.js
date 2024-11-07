@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import strings from '../util/strings';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
@@ -11,7 +12,7 @@ export default function ButtonResetPassword() {
 
     return (
         <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Enviar código de recuperación</Text>
+                    <Text style={styles.buttonText}>{strings.sendRecoveryCode}</Text>
                 </TouchableOpacity>
     )
 }

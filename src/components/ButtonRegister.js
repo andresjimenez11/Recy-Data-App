@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import strings from '../util/strings';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
@@ -11,7 +12,7 @@ export default function ButtonRegister() {
 
     return (
         <TouchableOpacity style={styles.registerButton} onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.registerButtonText}>Registrarse</Text>
+            <Text style={styles.registerButtonText}>{strings.registered}</Text>
         </TouchableOpacity>
     )
 }

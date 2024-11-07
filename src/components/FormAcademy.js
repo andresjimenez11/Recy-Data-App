@@ -5,6 +5,7 @@ import { Picker } from '@react-native-picker/picker';
 import formStyles from '../styles/formStyles';
 
 import colors from '../themes/colors';
+import strings from '../util/strings';
 
 export default function FormAcademy() {
 
@@ -23,7 +24,7 @@ export default function FormAcademy() {
 
         <View>
             <View style={formStyles.containerForm}>
-                <Text style={formStyles.labelRightSelector}>Sub Tipo</Text>
+                <Text style={formStyles.labelRightSelector}>{strings.subType}</Text>
                 <View style={formStyles.pickerContainer}>
                 <Picker
                     style={formStyles.pickerRight}
@@ -154,7 +155,7 @@ export default function FormAcademy() {
 
             <View style={formStyles.containerBottomForm}> 
                 <View style={formStyles.containerForm}>
-                    <Text style={formStyles.textContainerBottomForm}>Info Institucional</Text>
+                    <Text style={formStyles.textContainerBottomForm}>{strings.institutionalInfo}</Text>
                 </View>
                 
                 <View style={formStyles.containerForm}>
@@ -176,7 +177,7 @@ export default function FormAcademy() {
                 {selectedTypeInfo === 'Primaria' && 
                 <>
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.name}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -191,7 +192,7 @@ export default function FormAcademy() {
                     </View> 
 
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.grade}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -208,7 +209,7 @@ export default function FormAcademy() {
                     </View> 
 
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.schoolGrade}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -228,7 +229,7 @@ export default function FormAcademy() {
                 {selectedTypeInfo === 'Secundaria' && 
                 <>
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.name}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -243,7 +244,7 @@ export default function FormAcademy() {
                     </View> 
 
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.grade}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -261,7 +262,7 @@ export default function FormAcademy() {
                     </View> 
 
                     <View style={formStyles.containerForm}>
-                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                        <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.schoolGrade}</Text>
                         <View style={formStyles.pickerContainer}>
                         <Picker
                         style={formStyles.pickerRight}
@@ -282,7 +283,7 @@ export default function FormAcademy() {
                 {selectedTypeInfo === 'Universidad' && 
                     <>
                         <View style={formStyles.containerForm}>
-                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Nombre</Text>
+                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.name}</Text>
                             <View style={formStyles.pickerContainer}>
                             <Picker
                             style={formStyles.pickerRight}
@@ -297,7 +298,7 @@ export default function FormAcademy() {
                         </View> 
 
                         <View style={formStyles.containerForm}>
-                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Grado</Text>
+                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.grade}</Text>
                             <View style={formStyles.pickerContainer}>
                             <Picker
                             style={formStyles.pickerRight}
@@ -312,7 +313,7 @@ export default function FormAcademy() {
                         </View> 
 
                         <View style={formStyles.containerForm}>
-                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>Curso</Text>
+                            <Text style={[formStyles.labelRightSelector, formStyles.labelRightSelectorBottomForm]}>{strings.schoolGrade}</Text>
                             <View style={formStyles.pickerContainer}>
                             <Picker
                             style={formStyles.pickerRight}

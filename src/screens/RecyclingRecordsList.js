@@ -4,6 +4,7 @@ import mainStyles from '../styles/mainStyles';
 import MainMenuButtonStyles from '../styles/MainMenuButtonStyles.js';
 import Overlay from '../components/Overlay';
 import { handleRegisterRecycling } from '../components/MainMenuButtonHandlers.js';
+import strings from '../util/strings.js';
 
 export default function Main({ navigation }) {
   return (
@@ -17,7 +18,7 @@ export default function Main({ navigation }) {
           <Overlay />
 
           {/* Aquí puedes agregar más etiquetas o botones si es necesario */}
-          <Text style={mainStyles.label}>Lista</Text>
+          <Text style={mainStyles.label}>{strings.list}</Text>
 
         </ImageBackground>
       </View>
@@ -28,7 +29,7 @@ export default function Main({ navigation }) {
             style={[MainMenuButtonStyles.button, MainMenuButtonStyles.buttonStyle]}
             onPress={() => handleRegisterRecycling(navigation)}
             >
-            <Text style={MainMenuButtonStyles.buttonText}>Registrar Reciclaje</Text>
+            <Text style={MainMenuButtonStyles.buttonText}>{strings.registerRecycling}</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -29,7 +29,7 @@ export const handleRegisterRecycling = (navigation) => {
   export const handleAbout = (navigation) => {
     // Lógica para navegar a la pantalla de acerca de
     console.log("Botón Acerca de")
-    navigation.navigate('About');
+    navigation.navigate('AboutAs');
   };
   
   

@@ -7,6 +7,7 @@ import Overlay from '../components/Overlay';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
 import { launchCamera } from 'react-native-image-picker';
+import strings from '../util/strings';
 
 export default function Main({ navigation }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
@@ -93,7 +94,7 @@ export default function Main({ navigation }) {
               </View>
 
               {/* Campo de peso registrado */}
-              <Text style={mainStyles.label}>Peso registrado (kg)</Text>
+              <Text style={mainStyles.label}>{strings.weightLabel}</Text>
               <TextInput 
                 placeholder="Peso"
                 style={mainStyles.input}
@@ -101,7 +102,7 @@ export default function Main({ navigation }) {
               />
 
               {/* Campo de número de personas */}
-              <Text style={mainStyles.label}>Personas en la fuente</Text>
+              <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
               <TextInput 
                 placeholder="Número de personas"
                 style={mainStyles.input}
@@ -110,7 +111,7 @@ export default function Main({ navigation }) {
 
               {/* Selector de fecha */}
               <View style={mainStyles.dateContainer}>
-                <Text style={mainStyles.label}>Fecha de almacenamiento inicial</Text>
+                <Text style={mainStyles.label}>{strings.assignDate}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <TextInput 
                     placeholder="Asignar fecha"
@@ -138,7 +139,7 @@ export default function Main({ navigation }) {
 
               {/* Botón para abrir la cámara */}
               <View style={mainStyles.weightImage}>
-                <Text style={mainStyles.label}>Foto de peso</Text>
+                <Text style={mainStyles.label}>{strings.photoLabel}</Text>
                 <TouchableOpacity onPress={openCamera}>
                   <Image 
                     source={require('../../assets/images/Recurso 16.png')}
