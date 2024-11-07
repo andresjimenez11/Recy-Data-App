@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, Button, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 import formStyles from '../styles/formStyles';
@@ -7,12 +7,41 @@ import formStyles from '../styles/formStyles';
 import colors from '../themes/colors';
 import strings from '../util/strings';
 
+// Firebase 
+import app from '../../firebase-config';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import { collection, addDoc } from "firebase/firestore";
+
+const auth = getAuth(app);
+
 export default function FormResidential() {
 
+  const [selectedType, setSelectedType] = useState('Residencial')
   const [selectedSubType, setSelectedSubType] = useState('Estrato 1');
+  const [noContract, setNoContract] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [street, setSreet] = useState('');
+  const [n1, setN1] = useState('');
+  const [n2, setN2] = useState('');
+  const [n3, setN3] = useState('');
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1');
   const [selectedCity, setSelectedCity] = useState('Bucaramanga');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [noPeople, setNoPeople] = useState('');
+  const [password, setPassword] = useState('');
 
+ 
+    const handleCreateAccount = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            const user = userCredential.user;
+            Alert.alert('Se registro con éxito');
+        })
+    }
+  
 
   return (
 
@@ -37,14 +66,19 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    value={noContract}
+                    onChangeText={setNoContract}
                     style={formStyles.input}
                     placeholder="Codigo del recibo de aseo"
                     placeholderTextColor={colors.primary}
+                    keyboardType='numeric'
                 />
             </View>
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    value={name}
+                    onChangeText={setName}
                     style={formStyles.input}
                     placeholder="Nombre"
                     placeholderTextColor={colors.primary}
@@ -130,6 +164,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => setEmail(text)}
                     style={formStyles.input}
                     placeholder="Email"
                     placeholderTextColor={colors.primary}
@@ -146,12 +181,37 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => setPassword(text)}
                     style={[formStyles.input, formStyles.inputPassword]}
                     placeholder="Contraseña"
                     placeholderTextColor={colors.primary}
+                    secureTextEntry
                 />
             </View>
+       
+            <View style={formStyles.containerForm}>
+                <TouchableOpacity style={styles.registerButton} onPress={handleCreateAccount}>
+                    <Text style={styles.registerButtonText}>{strings.registered}</Text>
+                </TouchableOpacity>
+            </View>
+            
         </View>
 
     );
 }
+
+const styles = StyleSheet.create({
+    registerButton: {
+        width: '50%',
+        paddingVertical: '5%',
+        marginBottom: 35,
+        borderRadius: 15,
+        backgroundColor: '#f7e650',
+        alignItems: 'center',
+    },
+    registerButtonText: {
+        fontSize: 18,
+        color: '#000000',
+        fontFamily: 'Comfortaa',
+    },
+})
