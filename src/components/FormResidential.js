@@ -8,7 +8,7 @@ import colors from '../themes/colors';
 import strings from '../util/strings';
 
 // Firebase 
-import app from '../../firebase-config';
+import app, { db } from '../../firebase-config';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import { collection, addDoc } from "firebase/firestore";
@@ -34,13 +34,37 @@ export default function FormResidential() {
   const [password, setPassword] = useState('');
 
  
-    const handleCreateAccount = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            const user = userCredential.user;
-            Alert.alert('Se registro con éxito');
-        })
+  const handleCreateAccount = async () => {
+    try {
+      // Crea el usuario en Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Agrega los datos adicionales a Firestore
+      await addDoc(collection(db, 'usuarios'), {
+        userId: user.uid,
+        selectedType,
+        selectedSubType,
+        noContract,
+        name,
+        lastName,
+        street,
+        n1,
+        n2,
+        n3,
+        selectedCommune,
+        selectedCity,
+        phone,
+        email,
+        noPeople,
+      });
+
+      Alert.alert('Usuario registrado y datos guardados en Firestore con éxito');
+    } catch (error) {
+      console.error("Error al crear la cuenta o guardar los datos:", error);
+      Alert.alert('Error', 'No se pudo registrar el usuario');
     }
+  };
   
 
   return (
@@ -66,8 +90,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    value={noContract}
-                    onChangeText={setNoContract}
+                    onChangeText={(text) => noContract(text)}
                     style={formStyles.input}
                     placeholder="Codigo del recibo de aseo"
                     placeholderTextColor={colors.primary}
@@ -77,8 +100,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    value={name}
-                    onChangeText={setName}
+                    onChangeText={(text) => name(text)}
                     style={formStyles.input}
                     placeholder="Nombre"
                     placeholderTextColor={colors.primary}
@@ -87,6 +109,7 @@ export default function FormResidential() {
                 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => lastName(text)}
                     style={formStyles.input}
                     placeholder="Apellido"
                     placeholderTextColor={colors.primary}
@@ -95,11 +118,13 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => street(text)}
                     style={[formStyles.input, formStyles.inputAddress]}
                     placeholder="Calle"
                     placeholderTextColor={colors.primary}
                 />
                 <TextInput
+                    onChangeText={(text) => n1(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -109,6 +134,7 @@ export default function FormResidential() {
                     #
                 </Text>
                 <TextInput
+                    onChangeText={(text) => n2(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -118,6 +144,7 @@ export default function FormResidential() {
                     -
                 </Text>
                 <TextInput
+                    onChangeText={(text) => n3(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -156,6 +183,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => phone(text)}
                     style={formStyles.input}
                     placeholder="Teléfono"
                     placeholderTextColor={colors.primary}
@@ -173,6 +201,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
+                    onChangeText={(text) => noPeople(text)}
                     style={formStyles.input}
                     placeholder="No. Personas generadoras de residuos"
                     placeholderTextColor={colors.primary}
