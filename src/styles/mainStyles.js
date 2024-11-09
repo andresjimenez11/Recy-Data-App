@@ -97,6 +97,16 @@ const mainStyles = StyleSheet.create({
           marginRight: 10, // Espacio entre la imagen y el texto
       },
 
+      // contenedor cámara:
+
+      cameraContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',   // Centrar horizontalmente
+        flex: 1,
+        justifyContent: 'center' // Centrar verticalmente si el contenedor tiene espacio adicional
+    },
+    
+
     // Texto largo:
 
       longText: {

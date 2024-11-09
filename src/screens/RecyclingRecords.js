@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, ScrollView, Image, ImageBackground, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Camera } from 'expo-camera'; // Correcta importación de expo-camera
 import Icon from 'react-native-vector-icons/FontAwesome'; // Para usar FontAwesome
 import mainStyles from '../styles/mainStyles';
 import ButtonRegisterRecycle from '../components/ButtonRegisterRecycle';
 import Overlay from '../components/Overlay';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
-import { launchCamera } from 'react-native-image-picker';
 import strings from '../util/strings';
 
 export default function Main({ navigation }) {
@@ -14,6 +14,26 @@ export default function Main({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [imageUri, setImageUri] = useState(null); // Para almacenar la URI de la imagen capturada
+  const [permission, setPermission] = useState(null); // Para almacenar el permiso de cámara
+  const [cameraVisible, setCameraVisible] = useState(false);
+  const cameraRef = useRef(null); // Crear una referencia para la cámara
+
+  useEffect(() => {
+    // Solicita permisos de cámara al cargar el componente, solo si el permiso aún no ha sido decidido
+    const requestCameraPermission = async () => {
+      console.log("Solicitud de permiso de cámara en proceso...");
+      if (permission === null) {
+        console.log("El permiso aún no ha sido decidido.");
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        console.log("Estado del permiso recibido:", status);
+        setPermission(status === 'granted'); // Establecer el estado del permiso
+      } else {
+        console.log("El permiso ya ha sido decidido previamente:", permission);
+      }
+    };
+
+    requestCameraPermission(); // Asegura que el permiso se solicita cuando se monta el componente
+  }, [permission]);
 
   const handlePress = (index) => {
     console.log(`Botón de imagen ${index} presionado`);
@@ -21,36 +41,48 @@ export default function Main({ navigation }) {
   };
 
   const openCamera = async () => {
-    const options = {
-      mediaType: 'photo',
-      saveToPhotos: true,
-    };
+    console.log("Intentando abrir la cámara...");
+    if (permission === null) {
+      // Si aún no hemos recibido una respuesta del permiso, lo solicitamos
+      console.log("No se ha decidido el permiso, solicitándolo...");
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      console.log("Estado del permiso recibido al intentar abrir la cámara:", status);
+      setPermission(status === 'granted');
+    }
 
-    try {
-      const response = await launchCamera(options);
-      if (response.didCancel) {
-        console.log("Captura de cámara cancelada");
-      } else if (response.errorCode) {
-        console.error("Error al abrir la cámara:", response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri); // Almacena la URI de la imagen
-        console.log("Foto capturada:", response.assets[0].uri);
-      }
-    } catch (error) {
-      console.error("Error al abrir la cámara:", error);
+    // Solo si el permiso fue concedido, mostramos la cámara
+    if (permission === 'granted') {
+      console.log("Permiso concedido, mostrando cámara...");
+      setCameraVisible(true);
+    } else {
+      console.log("Permiso de cámara no concedido");
     }
   };
 
-  // Función para manejar la selección de la fecha
+  const takePicture = async () => {
+    try {
+      console.log("Intentando tomar una foto...");
+      if (cameraRef.current) {
+        const photo = await cameraRef.current.takePictureAsync();
+        console.log("Foto capturada:", photo.uri);  // Verifica que la URI de la foto es la esperada
+        setImageUri(photo.uri); // Almacena la URI de la imagen
+        setCameraVisible(false);
+      } else {
+        console.log("No se pudo acceder a la cámara");
+      }
+    } catch (error) {
+      console.error("Error al tomar la foto:", error); // Manejo de errores si la captura falla
+    }
+  };
+
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShowDatePicker(false); // Cierra el DatePicker
-    setDate(currentDate); // Actualiza la fecha
+    setShowDatePicker(false);
+    setDate(currentDate);
   };
 
   return (
     <View style={mainStyles.container}>
-      {/* Contenedor superior con imagen de fondo */}
       <View style={mainStyles.topSection}>
         <ImageBackground 
           source={require('../../assets/images/background.jpg')} 
@@ -58,7 +90,6 @@ export default function Main({ navigation }) {
         >
           <Overlay />
 
-          {/* Botones */}
           <View style={mainStyles.imagesRow}>
             <TouchableOpacity onPress={() => handlePress(1)}>
               <Image 
@@ -80,9 +111,8 @@ export default function Main({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          {/* Contenedor adicional con imagen y texto */}
           <View style={mainStyles.additionalContainer}>
-            <ScrollView>
+            <ScrollView style={{ width: 300 }}> 
               <View style={mainStyles.imageTextRow}>
                 <Image 
                   source={buttonContent.imageSource} 
@@ -93,31 +123,28 @@ export default function Main({ navigation }) {
                 </Text>
               </View>
 
-              {/* Campo de peso registrado */}
               <Text style={mainStyles.label}>{strings.weightLabel}</Text>
               <TextInput 
                 placeholder="Peso"
                 style={mainStyles.input}
-                keyboardType='decimal-pad' // Permitir entrada de decimales
+                keyboardType='decimal-pad'
               />
 
-              {/* Campo de número de personas */}
               <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
               <TextInput 
                 placeholder="Número de personas"
                 style={mainStyles.input}
-                keyboardType='numeric'  // Permitir solo números enteros
+                keyboardType='numeric'
               />
 
-              {/* Selector de fecha */}
               <View style={mainStyles.dateContainer}>
                 <Text style={mainStyles.label}>{strings.assignDate}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <TextInput 
                     placeholder="Asignar fecha"
-                    style={[mainStyles.input, { flex: 1 }]} // Hacer que el TextInput ocupe el espacio disponible
-                    editable={false} // Hacer que el TextInput no sea editable
-                    value={date.toLocaleDateString()} // Mostrar la fecha formateada
+                    style={[mainStyles.input, { flex: 1 }]}
+                    editable={false}
+                    value={date.toLocaleDateString()}
                   />
                   <TouchableOpacity onPress={() => setShowDatePicker(true)} style={[mainStyles.dateButton, { marginLeft: 10 }]}>
                     <Icon name='calendar' size={40} color="#fff"/>
@@ -125,7 +152,6 @@ export default function Main({ navigation }) {
                 </View>
               </View>
 
-              {/* Renderiza el DateTimePicker si showDatePicker es verdadero */}
               {showDatePicker && (
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -137,8 +163,7 @@ export default function Main({ navigation }) {
                 />
               )}
 
-              {/* Botón para abrir la cámara */}
-              <View style={mainStyles.weightImage}>
+              <View style={mainStyles.cameraContainer}>
                 <Text style={mainStyles.label}>{strings.photoLabel}</Text>
                 <TouchableOpacity onPress={openCamera}>
                   <Image 
@@ -146,7 +171,7 @@ export default function Main({ navigation }) {
                     style={mainStyles.smallImage}
                   />
                 </TouchableOpacity>
-                {imageUri && ( // Mostrar la imagen capturada
+                {imageUri && (
                   <Image source={{ uri: imageUri }} style={mainStyles.capturedImage} />
                 )}
               </View>
@@ -155,10 +180,22 @@ export default function Main({ navigation }) {
         </ImageBackground>
       </View>
 
-      {/* Sección inferior con botón */}
       <View style={mainStyles.bottomWhiteSection}>
         <ButtonRegisterRecycle />
       </View>
+
+      {cameraVisible && permission === 'granted' && (
+        <Camera
+          ref={cameraRef} // Asignar la referencia aquí
+          style={mainStyles.camera}
+          type={Camera.Type.back} // Aseguramos que la cámara está configurada correctamente
+          onCameraReady={() => console.log("Camera ready")}
+        >
+          <TouchableOpacity style={mainStyles.captureButton} onPress={takePicture}>
+            <Text style={mainStyles.text}>Capturar</Text>
+          </TouchableOpacity>
+        </Camera>
+      )}
     </View>
   );
 }
