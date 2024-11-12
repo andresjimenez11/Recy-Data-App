@@ -37,7 +37,11 @@ const strings = {
     recyclingRecord: 'Registro de reciclaje',
     recyclingRecordList: 'Lista de Registros de Reciclaje',
     AboutUs: 'Acerca de nosotros',
-    register: 'Registro'
+    register: 'Registro',
+    camera: 'Cámara',
+    flipCamera: 'Cabiar cámara',
+    camera_permission_request: 'Necesitamos tu permiso para mostrar la cámara'
+
     
 
     // Agrega más cadenas según sea necesario

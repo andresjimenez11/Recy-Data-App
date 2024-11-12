@@ -1,24 +1,31 @@
-import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity  } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, Image, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
 import mainStyles from '../styles/mainStyles';
 import MainMenuButtonStyles from '../styles/MainMenuButtonStyles.js';
 import Overlay from '../components/Overlay';
 import { handleRegisterRecycling } from '../components/MainMenuButtonHandlers.js';
 import strings from '../util/strings.js';
 
-export default function Main({ navigation }) {
+
+export default function RecyclingList({ navigation }) {
+
+
   return (
     <View style={mainStyles.container}>
       {/* Contenedor superior con imagen de fondo */}
-      <View style={mainStyles.topSection}>
+      <View style={mainStyles.container}>
         <ImageBackground 
           source={require('../../assets/images/background.jpg')} 
           style={mainStyles.background}
         >
           <Overlay />
 
-          {/* Aquí puedes agregar más etiquetas o botones si es necesario */}
-          <Text style={mainStyles.label}>{strings.list}</Text>
+          <View>
+            <Text>
+              Lista de reciclaje
+            </Text>
+      
+          </View>
 
         </ImageBackground>
       </View>
@@ -35,3 +42,7 @@ export default function Main({ navigation }) {
     </View>
   );
 }
+
+
+
+

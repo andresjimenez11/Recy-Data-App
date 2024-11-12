@@ -16,6 +16,7 @@ import { StyleSheet, Text } from 'react-native';
 import AboutUs from './src/screens/AboutUs';
 import strings from './src/util/strings';
 import Statistics from './src/screens/Statistics'; 
+import Camera from './src/screens/Camera';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -67,6 +68,7 @@ export default function App() {
         <AppStack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList} options={{ title: strings.recyclingRecordList }} />
         <AppStack.Screen name="AboutAs" component={AboutUs} options={{title: strings.AboutUs}}/>
         <AppStack.Screen name="Statistics" component={Statistics} options={{headerShow: true, title: strings.statistics}}/>
+        <AppStack.Screen name='Camera' component={Camera} options={{title: strings.camera}}/>
       </AppStack.Navigator>
     );
   }
