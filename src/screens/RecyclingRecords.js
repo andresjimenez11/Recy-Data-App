@@ -68,15 +68,13 @@ export default function Main({ navigation }) {
           peopleNum: state.peopleNum,
           date: state.date
         });
-        alert ('saved')
+        alert (strings.saved)
         navigation.navigate('RecyclingRecordsList');
       }catch(error){
-        console.log(error);     
+        console.log("Error al guardar el registro: ", error);     
 
       }
     }
-
-
   }
 
   return (

@@ -47,7 +47,9 @@ const strings = {
     weight: "Peso",
     number_of_people: "Número de personas",
     assign_date: "Asignar fecha",
-    date: "Fecha"
+    date: "Fecha",
+    noRecords: 'No hay registros disponibles',
+    saved: "Guardado con éxito"
 
     
 

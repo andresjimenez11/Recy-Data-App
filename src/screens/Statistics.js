@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet} from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const PAGEWEB = "https://www.redabc.org/"
+const PAGEWEB = "https://www.google.com/"
 
 export default function Statistics(){
   return (
