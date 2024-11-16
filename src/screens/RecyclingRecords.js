@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Image, ImageBackground, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, ImageBackground, Text, TextInput, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Para usar FontAwesome
 import mainStyles from '../styles/mainStyles';
 import ButtonRegisterRecycle from '../components/ButtonRegisterRecycle';
 import Overlay from '../components/Overlay';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
-import { launchCamera } from 'react-native-image-picker';
 import strings from '../util/strings';
+import firebase from '../database/firebase';
 
 export default function Main({ navigation }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
@@ -15,42 +15,72 @@ export default function Main({ navigation }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [imageUri, setImageUri] = useState(null); // Para almacenar la URI de la imagen capturada
 
+  const [state, setState] = useState ({
+    weight: "",
+    peopleNum: "",
+    recyclingType: 1,
+    date: new Date().toLocaleDateString()
+  })
+
+  const handleChangeText = (inputT, value) => {
+    setState({...state, [inputT]: value})
+  }
+  
+
   const handlePress = (index) => {
     console.log(`Botón de imagen ${index} presionado`);
+    setState({
+      weight: "",        // Limpiar el campo de peso
+      peopleNum: "",     // Limpiar el campo de número de personas
+      recyclingType: index, // Establecer el tipo de reciclaje
+      date: new Date().toLocaleDateString(), // Restablecer la fecha
+    });
+
+     // Actualizar el contenido del botón con base en el índice
     setButtonContent(getButtonContent(index));
+    //handleChangeText('recyclingType', index);
   };
 
   const openCamera = async () => {
-    const options = {
-      mediaType: 'photo',
-      saveToPhotos: true,
-    };
-
-    try {
-      const response = await launchCamera(options);
-      if (response.didCancel) {
-        console.log("Captura de cámara cancelada");
-      } else if (response.errorCode) {
-        console.error("Error al abrir la cámara:", response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
-        setImageUri(response.assets[0].uri); // Almacena la URI de la imagen
-        console.log("Foto capturada:", response.assets[0].uri);
-      }
-    } catch (error) {
-      console.error("Error al abrir la cámara:", error);
-    }
+    console.log("Navegando a la pantalla de la cámara...");
+    navigation.navigate('Camera');
   };
 
-  // Función para manejar la selección de la fecha
   const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false); // Cierra el DatePicker
-    setDate(currentDate); // Actualiza la fecha
+    if (selectedDate){
+      const formattedDate = selectedDate.toLocaleDateString();
+      setDate(selectedDate);
+      handleChangeText('date', formattedDate);
+    }
+    setShowDatePicker(false);
   };
+
+  const saveNewRecycling = async() => {
+    if (state.weight === "" || state.peopleNum === "") {
+      alert('No pueden haber campos vacios')
+    }else{
+      console.log(state);
+      navigation.navigate('RecyclingRecordsList');
+      try{
+        await firebase.db.collection('recyclingRecords').add({
+          recyclingType: state.recyclingType,
+          weight: state.weight,
+          peopleNum: state.peopleNum,
+          date: state.date
+        });
+        alert ('saved')
+        navigation.navigate('RecyclingRecordsList');
+      }catch(error){
+        console.log(error);     
+
+      }
+    }
+
+
+  }
 
   return (
     <View style={mainStyles.container}>
-      {/* Contenedor superior con imagen de fondo */}
       <View style={mainStyles.topSection}>
         <ImageBackground 
           source={require('../../assets/images/background.jpg')} 
@@ -58,7 +88,6 @@ export default function Main({ navigation }) {
         >
           <Overlay />
 
-          {/* Botones */}
           <View style={mainStyles.imagesRow}>
             <TouchableOpacity onPress={() => handlePress(1)}>
               <Image 
@@ -80,9 +109,8 @@ export default function Main({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          {/* Contenedor adicional con imagen y texto */}
           <View style={mainStyles.additionalContainer}>
-            <ScrollView>
+            <ScrollView style={{ width: 300 }}> 
               <View style={mainStyles.imageTextRow}>
                 <Image 
                   source={buttonContent.imageSource} 
@@ -93,39 +121,43 @@ export default function Main({ navigation }) {
                 </Text>
               </View>
 
-              {/* Campo de peso registrado */}
               <Text style={mainStyles.label}>{strings.weightLabel}</Text>
               <TextInput 
-                placeholder="Peso"
+                placeholder={strings.weight}
                 style={mainStyles.input}
-                keyboardType='decimal-pad' // Permitir entrada de decimales
+                keyboardType='decimal-pad'
+                value={state.weight}
+                onChangeText={(value) => handleChangeText('weight', value)}
               />
 
-              {/* Campo de número de personas */}
               <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
               <TextInput 
-                placeholder="Número de personas"
+                placeholder={strings.number_of_people}
                 style={mainStyles.input}
-                keyboardType='numeric'  // Permitir solo números enteros
+                keyboardType='numeric'
+                value={state.peopleNum}
+                onChangeText={(value) => handleChangeText('peopleNum', value)}
               />
 
-              {/* Selector de fecha */}
               <View style={mainStyles.dateContainer}>
                 <Text style={mainStyles.label}>{strings.assignDate}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <TextInput 
-                    placeholder="Asignar fecha"
-                    style={[mainStyles.input, { flex: 1 }]} // Hacer que el TextInput ocupe el espacio disponible
-                    editable={false} // Hacer que el TextInput no sea editable
-                    value={date.toLocaleDateString()} // Mostrar la fecha formateada
+                    placeholder={strings.assignDate}
+                    style={[mainStyles.input, { flex: 1 }]}
+                    editable={false}
+                    value={state.date}
+                    //value={date.toLocaleDateString()}
                   />
-                  <TouchableOpacity onPress={() => setShowDatePicker(true)} style={[mainStyles.dateButton, { marginLeft: 10 }]}>
-                    <Icon name='calendar' size={40} color="#fff"/>
+                  <TouchableOpacity 
+                    onPress={() => setShowDatePicker(true)} 
+                    style={[mainStyles.dateButton, { marginLeft: 10 }]}
+                  >
+                    <Icon name='calendar' size={40} color="white"/>
                   </TouchableOpacity>
                 </View>
               </View>
 
-              {/* Renderiza el DateTimePicker si showDatePicker es verdadero */}
               {showDatePicker && (
                 <DateTimePicker
                   testID="dateTimePicker"
@@ -137,8 +169,7 @@ export default function Main({ navigation }) {
                 />
               )}
 
-              {/* Botón para abrir la cámara */}
-              <View style={mainStyles.weightImage}>
+              <View style={mainStyles.cameraContainer}>
                 <Text style={mainStyles.label}>{strings.photoLabel}</Text>
                 <TouchableOpacity onPress={openCamera}>
                   <Image 
@@ -146,7 +177,7 @@ export default function Main({ navigation }) {
                     style={mainStyles.smallImage}
                   />
                 </TouchableOpacity>
-                {imageUri && ( // Mostrar la imagen capturada
+                {imageUri && (
                   <Image source={{ uri: imageUri }} style={mainStyles.capturedImage} />
                 )}
               </View>
@@ -155,9 +186,8 @@ export default function Main({ navigation }) {
         </ImageBackground>
       </View>
 
-      {/* Sección inferior con botón */}
       <View style={mainStyles.bottomWhiteSection}>
-        <ButtonRegisterRecycle />
+        <ButtonRegisterRecycle onPress={() => saveNewRecycling()} />
       </View>
     </View>
   );

@@ -56,4 +56,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 15,
   },
+  ButtonRow:{
+    flexDirection: 'row',
+    flex: 1,
+    padding: 5, // Espacio entre botones
+    width: '80%', // Ajusta el ancho de la fila
+    marginBottom:5, // Espacio entre las imágenes y el botón
+    marginTop: 5, // Ajusta este valor para mover los botones hacia arriba
+   },
 });

@@ -15,8 +15,11 @@ const strings = {
     noRegisteredItemsMessage: 'No tiene elementos registrados',
     login: 'Iniciar sesión',
     cleanDryWaste: 'Residuos limpios y secos como: plástico, vidrio, metales, papel y cartón.',
-    contaminatedWaste: 'Papel higiénico; servilletas, papeles y cartones contaminados con comida; papeles metalizados, entre otros; residuos COVID-19 como tapabocas, guantes, entre otros.',
+    contaminatedWaste: 'Papel higiénico, servilletas, papeles y cartones contaminados con comida; papeles metalizados, entre otros; residuos COVID-19 como tapabocas, guantes, entre otros.',
     foodWaste: 'Restos de comida, residuos de corte de césped y poda de jardín, etc.',
+    labelCleanDryWaste: 'Residuos limpios y secos',
+    labelContaminatedWaste: 'Residuos contaminados',
+    labelFoodWaste: 'Residuos organicos',
     recover: 'Recuperar',
     password: 'Contraseña',
     login: 'Iniciar sesión',
@@ -37,7 +40,15 @@ const strings = {
     recyclingRecord: 'Registro de reciclaje',
     recyclingRecordList: 'Lista de Registros de Reciclaje',
     AboutUs: 'Acerca de nosotros',
-    register: 'Registro'
+    register: 'Registro',
+    camera: 'Cámara',
+    flipCamera: 'Cabiar cámara',
+    camera_permission_request: 'Necesitamos tu permiso para mostrar la cámara',
+    weight: "Peso",
+    number_of_people: "Número de personas",
+    assign_date: "Asignar fecha",
+    date: "Fecha"
+
     
 
     // Agrega más cadenas según sea necesario
