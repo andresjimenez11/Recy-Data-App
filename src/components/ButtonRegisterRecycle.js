@@ -5,9 +5,16 @@ const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
 const scale = width / baseWidth;
 
-export default function ButtonRegisterRecycle() {
+export default function ButtonRegisterRecycle({onPress}) {
+    console.log("Propiedad inPress recibida:" , onPress);
     return (
-        <TouchableOpacity style={styles.registerButton}>
+        <TouchableOpacity 
+            style={styles.registerButton} 
+            onPressIn={() => {
+                console.log("Boton presionado");
+                onPress();
+        }}
+            >
             <Text style={styles.registerButtonText}>{strings.add}</Text>
         </TouchableOpacity>
     );

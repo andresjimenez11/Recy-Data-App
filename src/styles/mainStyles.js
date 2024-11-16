@@ -140,7 +140,25 @@ const mainStyles = StyleSheet.create({
       borderRadius: 10,
       fontSize: 16,
       fontFamily: 'Comfortaa',
-  },     
+  },  
+  
+  scrollViewContainer: {
+    alignItems: 'center', // Centrar horizontalmente
+    justifyContent: 'center', // Centrar verticalmente
+    width: '100%', // Ancho completo de la pantalla
+    height: '75%', // Altura fija
+    marginVertical: 20, // Separación vertical
+  },
+
+  scrollView: {
+    width: '95%', // Ancho completo
+    borderRadius: 10, // Bordes redondeados
+    paddingHorizontal: 10, // Espaciado interno
+  },
+
+  scrollContent: {
+    paddingVertical: 10, // Separación interna para el contenido
+  },
   
     
 })

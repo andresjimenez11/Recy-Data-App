@@ -40,7 +40,11 @@ const strings = {
     register: 'Registro',
     camera: 'Cámara',
     flipCamera: 'Cabiar cámara',
-    camera_permission_request: 'Necesitamos tu permiso para mostrar la cámara'
+    camera_permission_request: 'Necesitamos tu permiso para mostrar la cámara',
+    weight: "Peso",
+    number_of_people: "Número de personas",
+    assign_date: "Asignar fecha",
+    date: "Fecha"
 
     
 
