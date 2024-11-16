@@ -33,6 +33,20 @@ export default function RecyclingList({ navigation }) {
     });
   }, [])
 
+  // Función para mapear tipos de reciclaje a sus descripciones
+  const getRecyclingTypeLabel = type => {
+    switch (type) {
+      case 1:
+        return strings.labelCleanDryWaste; // "Residuos limpios y secos"
+      case 2:
+        return strings.labelContaminatedWaste; // "Residuos contaminados"
+      case 3:
+        return strings.labelFoodWaste; // "Residuos orgánicos"
+      default:
+        return strings.unknownType; // "Tipo desconocido" o cualquier valor predeterminado
+    }
+  };
+
    return (
     <View style={mainStyles.container}>
       {/* Contenedor superior con imagen de fondo */}
@@ -52,7 +66,7 @@ export default function RecyclingList({ navigation }) {
                     <ListItem 
                       key = {recyclinRecord.id} bottomDivider
                     >
-                      <ListItem.Chevron/>
+                      
                       <Avatar
                         rounded
                         size="medium"
@@ -64,6 +78,7 @@ export default function RecyclingList({ navigation }) {
                         <ListItem.Subtitle>ID: {recyclinRecord.id}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.weight}: {recyclinRecord.weight}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.number_of_people}: {recyclinRecord.peopleNum}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{strings.type}: {getRecyclingTypeLabel(recyclinRecord.recyclingType)}</ListItem.Subtitle>
                       </ListItem.Content>
                     </ListItem>
                   )

@@ -152,7 +152,7 @@ const mainStyles = StyleSheet.create({
 
   scrollView: {
     width: '95%', // Ancho completo
-    borderRadius: 10, // Bordes redondeados
+    borderRadius: 20, // Bordes redondeados
     paddingHorizontal: 10, // Espaciado interno
   },
 
