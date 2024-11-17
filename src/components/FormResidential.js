@@ -13,9 +13,13 @@ import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import { collection, addDoc } from "firebase/firestore";
 
+import { useNavigation } from '@react-navigation/native';
+
 const auth = getAuth(app);
 
 export default function FormResidential() {
+
+  const navigation = useNavigation();
 
   const [selectedType, setSelectedType] = useState('Residencial')
   const [selectedSubType, setSelectedSubType] = useState('Estrato 1');
@@ -35,6 +39,25 @@ export default function FormResidential() {
 
  
   const handleCreateAccount = async () => {
+
+    if (
+        !noContract.trim() ||
+        !name.trim() ||
+        !lastName.trim() ||
+        !street.trim() ||
+        !n1.trim() ||
+        !n2.trim() ||
+        !n3.trim() ||
+        !phone.trim() ||
+        !email.trim() ||
+        !noPeople.trim() ||
+        !password.trim()
+      ) {
+        // Mostrar mensaje de error si falta algún campo
+        Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
+        return;
+      }
+      
     try {
       // Crea el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -59,10 +82,25 @@ export default function FormResidential() {
         noPeople,
       });
 
-      Alert.alert('Usuario registrado y datos guardados en Firestore con éxito');
+      Alert.alert(
+        'Éxito',
+        'Cuenta creada con éxito',
+        [
+            {
+                text: 'OK',
+                onPress: () => navigation.navigate('Login'), // Redirige después de cerrar el alert
+            },
+        ],
+        { cancelable: false }
+    );
+    
     } catch (error) {
-      console.error("Error al crear la cuenta o guardar los datos:", error);
-      Alert.alert('Error', 'No se pudo registrar el usuario');
+        if (error.code === 'auth/email-already-in-use') {
+            Alert.alert('Este correo ya está en uso. Por favor, utiliza otro.');
+        } else {
+        console.error("Error al crear la cuenta o guardar los datos:", error);
+        Alert.alert('Error', 'No se pudo registrar el usuario');
+        }
     }
   };
   
@@ -90,7 +128,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => noContract(text)}
+                    onChangeText={(text) => setNoContract(text)}
                     style={formStyles.input}
                     placeholder="Codigo del recibo de aseo"
                     placeholderTextColor={colors.primary}
@@ -100,7 +138,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => name(text)}
+                    onChangeText={(text) => setName(text)}
                     style={formStyles.input}
                     placeholder="Nombre"
                     placeholderTextColor={colors.primary}
@@ -109,7 +147,7 @@ export default function FormResidential() {
                 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => lastName(text)}
+                    onChangeText={(text) => setLastName(text)}
                     style={formStyles.input}
                     placeholder="Apellido"
                     placeholderTextColor={colors.primary}
@@ -118,13 +156,13 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => street(text)}
+                    onChangeText={(text) => setSreet(text)}
                     style={[formStyles.input, formStyles.inputAddress]}
                     placeholder="Calle"
                     placeholderTextColor={colors.primary}
                 />
                 <TextInput
-                    onChangeText={(text) => n1(text)}
+                    onChangeText={(text) => setN1(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -134,7 +172,7 @@ export default function FormResidential() {
                     #
                 </Text>
                 <TextInput
-                    onChangeText={(text) => n2(text)}
+                    onChangeText={(text) => setN2(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -144,7 +182,7 @@ export default function FormResidential() {
                     -
                 </Text>
                 <TextInput
-                    onChangeText={(text) => n3(text)}
+                    onChangeText={(text) => setN3(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
                     placeholder="00"
                     placeholderTextColor={colors.primary}
@@ -183,7 +221,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => phone(text)}
+                    onChangeText={(text) => setPhone(text)}
                     style={formStyles.input}
                     placeholder="Teléfono"
                     placeholderTextColor={colors.primary}
@@ -201,7 +239,7 @@ export default function FormResidential() {
 
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => noPeople(text)}
+                    onChangeText={(text) => setNoPeople(text)}
                     style={formStyles.input}
                     placeholder="No. Personas generadoras de residuos"
                     placeholderTextColor={colors.primary}
@@ -218,7 +256,7 @@ export default function FormResidential() {
                 />
             </View>
        
-            <View style={formStyles.containerForm}>
+            <View style={styles.containerForm}>
                 <TouchableOpacity style={styles.registerButton} onPress={handleCreateAccount}>
                     <Text style={styles.registerButtonText}>{strings.registered}</Text>
                 </TouchableOpacity>
@@ -230,17 +268,35 @@ export default function FormResidential() {
 }
 
 const styles = StyleSheet.create({
-    registerButton: {
-        width: '50%',
-        paddingVertical: '5%',
-        marginBottom: 35,
-        borderRadius: 15,
-        backgroundColor: '#f7e650',
+    containerForm: {
+        flex: 1,
+        flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 40,
+      },
+    registerButton: {
+        width: '62%',
+        paddingVertical: '6%',
+        marginBottom: '13%',
+        borderRadius: 15,
+        backgroundColor: '#609800',
+        alignItems: 'center',
+
+        /* Sombras */
+        shadowColor: '#000', 
+        shadowOffset: {
+          width: 0,
+          height: 3, 
+        },
+        shadowOpacity: 0.2, 
+        shadowRadius: 5, 
+    
+        elevation: 5, 
     },
     registerButtonText: {
-        fontSize: 18,
-        color: '#000000',
+        fontSize: 19,
+        color: '#FFFFFF',
         fontFamily: 'Comfortaa',
     },
 })

@@ -98,9 +98,9 @@ export default function Register({ navigation }) {
           </View>
 
           {/* Botón fijo */}
-          <View style={registerStyles.buttonsContainer}>
+          {/* <View style={registerStyles.buttonsContainer}>
               <ButtonRegister />
-          </View>
+          </View> */}
         </View>
 
     </KeyboardAvoidingView>
