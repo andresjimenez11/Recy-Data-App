@@ -4,24 +4,42 @@ import { Camera, CameraType, FlashMode } from 'expo-camera/legacy';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import strings from '../util/strings';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function CameraScreen({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = useCameraPermissions();
   const [flashMode, setFlashMode] = useState(FlashMode.off);
   const cameraRef = useRef(null);
+  const [isCameraActive, setIsCameraActive] = useState(true);
 
   useEffect(() => {
-    requestPermission();
-  }, []);
+    // Solicitar permisos de la cámara si no están concedidos
+    if(!permission?.granted){
+      requestPermission();
+    }
+    
+  }, [permission]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+       // Activar la cámara al enfocar la pantalla
+       setIsCameraActive(true);
+
+       return() => {
+        // Desactivar la cámara al desenfocar la pantalla
+        setIsCameraActive(false);
+       };
+    }, [])
+  );
 
   if (!permission) {
-    // Camera permissions are still loading
+    // Cargado permisos de la camara
     return <View />;
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet
+    // Permisos no concedidos
     return (
       <View style={styles.container}>
         <Text style={styles.message}>{strings.camera_permission_request}</Text>
@@ -30,11 +48,11 @@ export default function CameraScreen({ navigation }) {
     );
   }
 
-  function toggleCameraType() {
+  const  toggleCameraType = () => {
     setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
-  }
+  };
 
-  function toggleFlashMode() {
+  const toggleFlashMode = () => {
     setFlashMode(current =>
       current === FlashMode.off
         ? FlashMode.on
@@ -42,25 +60,26 @@ export default function CameraScreen({ navigation }) {
         ? FlashMode.auto
         : FlashMode.off
     );
-  }
+  };
 
-  function getFlashIcon() {
+  const getFlashIcon = () => {
     if (flashMode === FlashMode.off) return 'bolt';
     if (flashMode === FlashMode.on) return 'bolt';
     if (flashMode === FlashMode.auto) return 'bolt';
-  }
+  };
 
   const takePicture = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
       console.log(photo);
-      // Aquí puedes manejar la foto tomada, por ejemplo, navegar y mostrar la imagen
-      navigation.navigate('RecyclingRecords', { photoUri: photo.uri });
+      
+      navigation.navigate('PhotoPreview', { photoUri: photo.uri });
     }
   };
 
   return (
     <View style={styles.container}>
+      {isCameraActive ?(
       <Camera ref={cameraRef} style={styles.camera} type={type} flashMode={flashMode}>
         <View style={styles.ButtonRow}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
@@ -83,6 +102,9 @@ export default function CameraScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </Camera>
+      ):(
+        <Text>Cargando cámara</Text>// Mostrar un mensaje mientras se activa la cámara
+      )}
     </View>
   );
 }

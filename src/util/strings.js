@@ -49,7 +49,8 @@ const strings = {
     assign_date: "Asignar fecha",
     date: "Fecha",
     noRecords: 'No hay registros disponibles',
-    saved: "Guardado con éxito"
+    saved: "Guardado con éxito",
+    PhotoPreview: "Visualizar foto"
 
     
 

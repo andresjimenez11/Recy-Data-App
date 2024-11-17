@@ -17,6 +17,7 @@ import AboutUs from './src/screens/AboutUs';
 import strings from './src/util/strings';
 import Statistics from './src/screens/Statistics'; 
 import Camera from './src/screens/Camera';
+import PhotoPreview from './src/screens/PhotoPreview';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -69,6 +70,7 @@ export default function App() {
         <AppStack.Screen name="AboutAs" component={AboutUs} options={{title: strings.AboutUs}}/>
         <AppStack.Screen name="Statistics" component={Statistics} options={{headerShow: true, title: strings.statistics}}/>
         <AppStack.Screen name='Camera' component={Camera} options={{title: strings.camera}}/>
+        <AppStack.Screen name='PhotoPreview' component={PhotoPreview} options={{title: strings.PhotoPreview}}/>
       </AppStack.Navigator>
     );
   }
