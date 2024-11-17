@@ -8,6 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
 import strings from '../util/strings';
 import firebase from '../database/firebase';
+import { Alert } from 'react-native';
 
 export default function Main({ navigation, route }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
@@ -66,8 +67,9 @@ export default function Main({ navigation, route }) {
       alert('No pueden haber campos vacios')
     }else{
       console.log(state);
-      navigation.navigate('RecyclingRecordsList');
+      //navigation.navigate('RecyclingRecordsList');
       try{
+        // Guardar datos en Firebase
         await firebase.db.collection('recyclingRecords').add({
           recyclingType: state.recyclingType,
           weight: state.weight,
@@ -75,8 +77,15 @@ export default function Main({ navigation, route }) {
           date: state.date,
           imageUri: imageUri,
         });
-        alert (strings.saved)
-        navigation.navigate('RecyclingRecordsList');
+        Alert.alert (
+          'Información de almacenaje',
+          strings.saved, 
+          [
+            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList')},
+          ],
+          {cancelable: false}
+        );
+        
       }catch(error){
         console.log("Error al guardar el registro: ", error);     
 
