@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Image, ImageBackground, Text, TextInput, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Para usar FontAwesome
 import mainStyles from '../styles/mainStyles';
@@ -9,7 +9,7 @@ import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
 import strings from '../util/strings';
 import firebase from '../database/firebase';
 
-export default function Main({ navigation }) {
+export default function Main({ navigation, route }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -20,7 +20,13 @@ export default function Main({ navigation }) {
     peopleNum: "",
     recyclingType: 1,
     date: new Date().toLocaleDateString()
-  })
+  });
+
+  useEffect(() => {
+    if(route.params?.photoUri){
+      setImageUri(route.params.photoUri);
+    }
+  }, [route.params?.photoUri]);
 
   const handleChangeText = (inputT, value) => {
     setState({...state, [inputT]: value})
@@ -66,7 +72,8 @@ export default function Main({ navigation }) {
           recyclingType: state.recyclingType,
           weight: state.weight,
           peopleNum: state.peopleNum,
-          date: state.date
+          date: state.date,
+          imageUri: imageUri,
         });
         alert (strings.saved)
         navigation.navigate('RecyclingRecordsList');
