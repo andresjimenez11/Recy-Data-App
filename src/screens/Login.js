@@ -1,4 +1,4 @@
-import { View, ImageBackground, TextInput, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity} from 'react-native';
+import { View, ImageBackground, TextInput, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity, Alert} from 'react-native';
 import React, {useState} from 'react'
 import loginStyles from '../styles/loginStyles';
 import ButtonLogin from '../components/ButtonLogin';
@@ -7,12 +7,36 @@ import ButtonResetPassword from '../components/ButtonResetPassword';
 import ForgotPassword from '../components/ForgotPassword';
 import Overlay from '../components/Overlay';
 import strings from '../util/strings';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase-config';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app);
 
-export default function Login({navigation}){
+export default function Login(){
     const [isSelected, setIsSelected] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigation = useNavigation();
+
+    const handleSignIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log('Sesión iniciada');
+            const user = userCredential.user;
+            console.log(user);
+            navigation.navigate('App', 'MainMenu');
+        })
+        .catch(error => {
+            console.log(error);
+            Alert.alert(error.message)
+        })
+    }
+
     return (
-  
+        
         <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -31,15 +55,18 @@ export default function Login({navigation}){
                     <View style={loginStyles.form}>
                         <Image source={require('../../assets/images/logo3.png')} style={loginStyles.logo}/>
                         <TextInput
+                            onChangeText={(text) => setEmail(text)}
                             style={loginStyles.input}
                             placeholder="E-mail"
                             placeholderTextColor="#176b00"
                         />
 
                         <TextInput
+                            onChangeText={(text) => setPassword(text)}
                             style={loginStyles.input}
                             placeholder="Contraseña"
                             placeholderTextColor="#176b00"
+                            secureTextEntry
                         />
                         
                         <TouchableOpacity 
@@ -60,8 +87,7 @@ export default function Login({navigation}){
                 <View style={loginStyles.buttonsContainer}>
           
                     <ButtonLogin 
-                        stack='App'
-                        targetScreen='MainMenu'
+                        handle={handleSignIn}
                     />
 
                     <ButtonRegister/>

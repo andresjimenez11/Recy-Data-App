@@ -82,10 +82,8 @@ const loginStyles = StyleSheet.create({
 
       // Botones de inicio y registro
       buttonsContainer: {
-        position: 'absolute', 
-        bottom: '3%', 
-        left: 0,
-        right: 0,
+        width: '100%',
+        marginBottom: 30,
         alignItems: 'center',
         zIndex: 2, 
       },
