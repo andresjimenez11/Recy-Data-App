@@ -6,12 +6,12 @@ const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
 const scale = width / baseWidth;
 
-export default function ButtonLogin({stack, targetScreen}) {
+export default function ButtonLogin({handle}) {
 
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate(stack, { screen: targetScreen })}>
+        <TouchableOpacity style={styles.loginButton} onPress={handle}>
             <Text style={styles.loginButtonText}>{strings.login}</Text>
         </TouchableOpacity>
     )
