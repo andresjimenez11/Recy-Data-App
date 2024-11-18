@@ -34,7 +34,7 @@ const formStyles = StyleSheet.create({
         marginBottom: 40,
       },
       inputPasswordBF: {
-        marginBottom: 70,
+        marginBottom: 20,
       },
       labelAddressNumber: {
         color: '#ffffff',
@@ -51,11 +51,10 @@ const formStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 50,
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
         marginTop: 20,
+        marginBottom: 30,
         paddingTop: 15,
-        paddingBottom: 65,
+        paddingBottom: 30,
         alignItems: 'center',
       },
       textContainerBottomForm:

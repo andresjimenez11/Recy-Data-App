@@ -57,7 +57,7 @@ export default function FormResidential() {
         Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
         return;
       }
-      
+
     try {
       // Crea el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -97,7 +97,11 @@ export default function FormResidential() {
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
             Alert.alert('Este correo ya está en uso. Por favor, utiliza otro.');
-        } else {
+        } 
+        else if (error.code === 'auth/invalid-email') {
+            Alert.alert('Correo No válido.');
+        }        
+        else {
         console.error("Error al crear la cuenta o guardar los datos:", error);
         Alert.alert('Error', 'No se pudo registrar el usuario');
         }
@@ -225,6 +229,7 @@ export default function FormResidential() {
                     style={formStyles.input}
                     placeholder="Teléfono"
                     placeholderTextColor={colors.primary}
+                    keyboardType='numeric'
                 />
             </View>
 
@@ -243,6 +248,7 @@ export default function FormResidential() {
                     style={formStyles.input}
                     placeholder="No. Personas generadoras de residuos"
                     placeholderTextColor={colors.primary}
+                    keyboardType='numeric'
                 />
             </View>
 
