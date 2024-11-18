@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Image, ImageBackground, Text, TextInput, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Para usar FontAwesome
 import mainStyles from '../styles/mainStyles';
@@ -8,8 +8,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
 import strings from '../util/strings';
 import firebase from '../database/firebase';
+import { Alert } from 'react-native';
 
-export default function Main({ navigation }) {
+export default function Main({ navigation, route }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -20,7 +21,13 @@ export default function Main({ navigation }) {
     peopleNum: "",
     recyclingType: 1,
     date: new Date().toLocaleDateString()
-  })
+  });
+
+  useEffect(() => {
+    if(route.params?.photoUri){
+      setImageUri(route.params.photoUri);
+    }
+  }, [route.params?.photoUri]);
 
   const handleChangeText = (inputT, value) => {
     setState({...state, [inputT]: value})
@@ -60,23 +67,30 @@ export default function Main({ navigation }) {
       alert('No pueden haber campos vacios')
     }else{
       console.log(state);
-      navigation.navigate('RecyclingRecordsList');
+      //navigation.navigate('RecyclingRecordsList');
       try{
+        // Guardar datos en Firebase
         await firebase.db.collection('recyclingRecords').add({
           recyclingType: state.recyclingType,
           weight: state.weight,
           peopleNum: state.peopleNum,
-          date: state.date
+          date: state.date,
+          imageUri: imageUri,
         });
-        alert ('saved')
-        navigation.navigate('RecyclingRecordsList');
+        Alert.alert (
+          'Información de almacenaje',
+          strings.saved, 
+          [
+            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList')},
+          ],
+          {cancelable: false}
+        );
+        
       }catch(error){
-        console.log(error);     
+        console.log("Error al guardar el registro: ", error);     
 
       }
     }
-
-
   }
 
   return (

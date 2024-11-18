@@ -1,28 +1,28 @@
 import React from 'react';
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import mainStyles from '../styles/mainStyles.js';
-import Overlay from '../components/Overlay.js';
-import strings from '../util/strings.js';
+import { View, StyleSheet} from 'react-native';
+import { WebView } from 'react-native-webview';
 
-export default function AboutUs({ navigation }) {
+const PAGEWEB = "https://www.redabc.org/"
+
+export default function AboutUs(){
   return (
-    <View style={mainStyles.container}>
-      {/* Contenedor superior con imagen de fondo */}
-      <View style={mainStyles.topSection}>
-        <ImageBackground 
-          source={require('../../assets/images/background.jpg')} 
-          style={mainStyles.background}
-        >
-          <Overlay />
-
-          {/* Mensaje de no elementos registrados */}
-          <View style={mainStyles.buttonsContainer}>
-            <Text style={mainStyles.label}>{strings.about}</Text>
+    <View style={styles.container}>   
+        <View style = {styles.topSection}>                
+              <View style = {{width: '100%', height: '100%'}}>
+                <WebView
+                source={{uri: PAGEWEB}}
+                  onLoad={console.log ('Loaded!')}
+                />
           </View>
-
-        </ImageBackground>
-      </View>
-
+        </View>      
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItem: 'center',
+    justifyContent: 'center',
+  },
+});

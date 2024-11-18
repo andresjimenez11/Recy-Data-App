@@ -17,18 +17,20 @@ export const handleRegisterRecycling = (navigation) => {
   export const handleStatistics = (navigation) => {
     // Lógica para navegar a la pantalla de estadísticas
     console.log("Botón Estadisticas")
-    navigation.navigate('Statistics');
+    //navigation.navigate('Statistics');
+    alert("Función aún no disponible")
   };
   
   export const handleSettings = (navigation) => {
     // Lógica para navegar a la pantalla de configuración
     console.log("Botón Configuración")
-    navigation.navigate('Settings');
+    alert("Función aún no disponible")
+    //navigation.navigate('Settings');
   };
   
   export const handleAbout = (navigation) => {
     // Lógica para navegar a la pantalla de acerca de
-    console.log("Botón Acerca de")
+    console.log("Botón Acerca de");
     navigation.navigate('AboutAs');
   };
   

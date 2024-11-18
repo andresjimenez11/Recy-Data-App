@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, ImageBackground, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import mainStyles from '../styles/mainStyles';
 import MainMenuButtonStyles from '../styles/MainMenuButtonStyles.js';
 import Overlay from '../components/Overlay';
@@ -8,29 +8,43 @@ import strings from '../util/strings.js';
 import firebase from '../database/firebase.js'
 import { ScrollView } from 'react-native-gesture-handler';
 import {ListItem, Avatar} from 'react-native-elements';
-import { Icon } from 'react-native-vector-icons/FontAwesome';
+import { color } from 'react-native-elements/dist/helpers/index.js';
 
 
 export default function RecyclingList({ navigation }) {
-
+  
   const [recycling, setRecycling] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    firebase.db.collection('recyclingRecords').onSnapshot(querySnapshot => {
-      const recyclings = [];
+    const fetchData = async() => {
+      try {
+        const querySnapshot = await firebase.db.collection('recyclingRecords').get();
+        const recyclings = [];
 
-      querySnapshot.docs.forEach(doc  => {
-        const {recyclingType, weight, peopleNum, date} = doc.data()
-        recyclings.push({
-          id: doc.id,
-          recyclingType,
-          weight,
-          peopleNum,
-          date
-        })
-      });
-      setRecycling(recyclings)
-    });
+        querySnapshot.docs.forEach(doc  => {
+          const {recyclingType, weight, peopleNum, date} = doc.data();
+          recyclings.push({
+            id: doc.id,
+            recyclingType,
+            weight,
+            peopleNum,
+            date
+          });
+        });
+        setRecycling(recyclings);
+    }catch (error){
+      console.error("error fetching data: ", error);
+
+    }finally{
+      setLoading(false);
+    }     
+  };
+  fetchData();
+
+  return() => {
+    
+  };
   }, [])
 
   // Función para mapear tipos de reciclaje a sus descripciones
@@ -58,20 +72,23 @@ export default function RecyclingList({ navigation }) {
           <Overlay />
 
           <View style={mainStyles.scrollViewContainer}>
+            {loading ? (
+              <ActivityIndicator size= "large" color="white" />
+            ): recycling.length === 0 ? (
+              <Text style = {{ color: 'white', textAlign: 'center', marginTop: 20 }}>
+                {strings.noRecords}
+              </Text>
+            ):(
             <ScrollView contentContainerStyle={mainStyles.scrollContent} style={mainStyles.scrollView}>
-
               {
                 recycling.map(recyclinRecord => {
                   return (
                     <ListItem 
-                      key = {recyclinRecord.id} bottomDivider
-                    >
-                      
+                      key = {recyclinRecord.id} bottomDivider>                      
                       <Avatar
                         rounded
                         size="medium"
-                        icon={{ name: 'recycle', type: 'font-awesome', color: '#4CAF50' }}
-                        
+                        icon={{ name: 'recycle', type: 'font-awesome', color: '#4CAF50' }}                        
                       />
                       <ListItem.Content>
                         <ListItem.Title>{strings.date}: {recyclinRecord.date}</ListItem.Title>
@@ -81,14 +98,11 @@ export default function RecyclingList({ navigation }) {
                         <ListItem.Subtitle>{strings.type}: {getRecyclingTypeLabel(recyclinRecord.recyclingType)}</ListItem.Subtitle>
                       </ListItem.Content>
                     </ListItem>
-                  )
-                })
-              }
-
+                  );
+                })}
             </ScrollView>
-
-            </View>
-
+            )}
+          </View>
         </ImageBackground>
       </View>
 
