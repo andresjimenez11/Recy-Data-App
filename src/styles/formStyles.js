@@ -31,6 +31,9 @@ const formStyles = StyleSheet.create({
         textAlign: 'center',
       },
       inputPassword: {
+        marginBottom: 40,
+      },
+      inputPasswordBF: {
         marginBottom: 70,
       },
       labelAddressNumber: {
