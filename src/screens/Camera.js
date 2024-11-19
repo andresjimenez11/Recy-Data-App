@@ -6,12 +6,14 @@ import strings from '../util/strings';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function CameraScreen({ navigation }) {
+export default function CameraScreen({ navigation, route }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = useCameraPermissions();
   const [flashMode, setFlashMode] = useState(FlashMode.off);
   const cameraRef = useRef(null);
   const [isCameraActive, setIsCameraActive] = useState(true);
+  const userId = route.params?.userId;
+  console.log("User ID recibido desde route:", userId);
 
   useEffect(() => {
     // Solicitar permisos de la cámara si no están concedidos
@@ -73,7 +75,7 @@ export default function CameraScreen({ navigation }) {
       const photo = await cameraRef.current.takePictureAsync();
       console.log(photo);
       
-      navigation.navigate('PhotoPreview', { photoUri: photo.uri });
+      navigation.navigate('PhotoPreview', { photoUri: photo.uri, userId });
     }
   };
 

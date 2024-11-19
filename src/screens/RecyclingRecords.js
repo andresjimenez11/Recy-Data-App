@@ -16,23 +16,31 @@ export default function Main({ navigation, route }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [imageUri, setImageUri] = useState(null); // Para almacenar la URI de la imagen capturada
 
+  // Obtener el userId desde los parámetros
+  const userId = route.params?.userId;
+  console.log("User ID recibido desde route:", userId);
+
   const [state, setState] = useState ({
     weight: "",
     peopleNum: "",
     recyclingType: 1,
-    date: new Date().toLocaleDateString()
+    date: new Date().toLocaleDateString(),
   });
+  
 
   useEffect(() => {
     if(route.params?.photoUri){
       setImageUri(route.params.photoUri);
     }
-  }, [route.params?.photoUri]);
+
+    if(!state.userId && userId){
+      setState((prevState) => ({...prevState, userId}));
+    }
+  }, [route.params?.photoUri, userId]);
 
   const handleChangeText = (inputT, value) => {
     setState({...state, [inputT]: value})
-  }
-  
+  };
 
   const handlePress = (index) => {
     console.log(`Botón de imagen ${index} presionado`);
@@ -50,7 +58,7 @@ export default function Main({ navigation, route }) {
 
   const openCamera = async () => {
     console.log("Navegando a la pantalla de la cámara...");
-    navigation.navigate('Camera');
+    navigation.navigate('Camera',{userId});
   };
 
   const onDateChange = (event, selectedDate) => {
@@ -67,10 +75,10 @@ export default function Main({ navigation, route }) {
       alert('No pueden haber campos vacios')
     }else{
       console.log(state);
-      //navigation.navigate('RecyclingRecordsList');
       try{
         // Guardar datos en Firebase
         await firebase.db.collection('recyclingRecords').add({
+          userId: state.userId,
           recyclingType: state.recyclingType,
           weight: state.weight,
           peopleNum: state.peopleNum,
@@ -81,7 +89,7 @@ export default function Main({ navigation, route }) {
           'Información de almacenaje',
           strings.saved, 
           [
-            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList')},
+            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList',{userId})},
           ],
           {cancelable: false}
         );

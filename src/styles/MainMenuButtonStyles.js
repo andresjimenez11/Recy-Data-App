@@ -64,4 +64,13 @@ export default StyleSheet.create({
     marginBottom:5, // Espacio entre las imágenes y el botón
     marginTop: 5, // Ajusta este valor para mover los botones hacia arriba
    },
+
+   logoutButton:{
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    padding: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 20,
+   }
 });

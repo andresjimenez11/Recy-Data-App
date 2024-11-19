@@ -1,12 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import MainMenuButtonStyles from '../styles/MainMenuButtonStyles.js';
 import Overlay from '../components/Overlay.js';
-import { handleStatistics, handleSettings, handleAbout, handleRegisterRecyclingList} from '../components/MainMenuButtonHandlers.js';
+import { handleStatistics, handleSettings, handleAbout, handleRegisterRecyclingList, handleLogout} from '../components/MainMenuButtonHandlers.js';
 import strings from '../util/strings.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function MainMenu({ navigation }) {
+export default function MainMenu({ route, navigation }) {
+  // Obtener el ID del usuario desde los parámetros de navegación
+  const {userId } = route.params;
+
+  // Mostrar el ID del usuario
+  useEffect(() => {
+    console.log('Id del ususario: ', userId);
+  }, [userId]);
+
   return (
     <View style={MainMenuButtonStyles.container}>
 
@@ -25,6 +33,14 @@ export default function MainMenu({ navigation }) {
             style={MainMenuButtonStyles.logo}
             resizeMode="contain"
           />
+
+          {/*Bot´n logout*/}
+          <TouchableOpacity
+            style={MainMenuButtonStyles.logoutButton}
+            onPress={() => handleLogout(navigation)}
+          >
+            <Icon name='power-off' size={30} color={'white'}/>
+          </TouchableOpacity>
         </ImageBackground>
       </View>
 
@@ -36,7 +52,7 @@ export default function MainMenu({ navigation }) {
         <View style={MainMenuButtonStyles.ButtonRow}>
           <TouchableOpacity 
             style={[MainMenuButtonStyles.buttonStyle, MainMenuButtonStyles.button]}
-            onPress={() => handleRegisterRecyclingList(navigation)}            
+            onPress={() => handleRegisterRecyclingList(navigation, userId)}            
             >
               <Icon name='recycle' size={40} color={"white"}></Icon>
               <Text style={MainMenuButtonStyles.buttonText}>{strings.registerRecycling}</Text>

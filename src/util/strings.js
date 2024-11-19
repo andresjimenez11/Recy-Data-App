@@ -50,7 +50,14 @@ const strings = {
     date: "Fecha",
     noRecords: 'No hay registros disponibles',
     saved: "Guardado con éxito",
-    PhotoPreview: "Visualizar foto"
+    PhotoPreview: "Visualizar foto",
+    cancel: "Cancelar",
+    confirmLogoutTitle: "Confirmar cierre de sesión",
+    confirmLogoutMessage: "¿Estás seguro de que quieres cerrar sesión?",
+    cancelLogout: "Cierre de sesión cancelado",
+    confirm: "Confirmar",
+    LoggingOut: "Cerrando sesión"
+
 
     
 
