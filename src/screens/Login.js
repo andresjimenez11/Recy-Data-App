@@ -27,7 +27,12 @@ export default function Login(){
             console.log('Sesión iniciada');
             const user = userCredential.user;
             console.log(user);
-            navigation.navigate('App', 'MainMenu');
+            const userId = user.uid; // Obtener el ID del usuario
+            // Navegar a la pantalla 'MainMenu' y pasar el ID del usuario
+            navigation.navigate('App', {
+                screen: 'MainMenu',
+            params: {userId: userId}, // Pasar el ID como parámetro
+            });
         })
         .catch(error => {
             console.log(error);
