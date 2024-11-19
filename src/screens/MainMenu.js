@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { View, Text, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import MainMenuButtonStyles from '../styles/MainMenuButtonStyles.js';
 import Overlay from '../components/Overlay.js';
-import { handleStatistics, handleSettings, handleAbout, handleRegisterRecyclingList} from '../components/MainMenuButtonHandlers.js';
+import { handleStatistics, handleSettings, handleAbout, handleRegisterRecyclingList, handleLogout} from '../components/MainMenuButtonHandlers.js';
 import strings from '../util/strings.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -25,6 +25,14 @@ export default function MainMenu({ navigation }) {
             style={MainMenuButtonStyles.logo}
             resizeMode="contain"
           />
+
+          {/*Bot´n logout*/}
+          <TouchableOpacity
+            style={MainMenuButtonStyles.logoutButton}
+            onPress={() => handleLogout(navigation)}
+          >
+            <Icon name='power-off' size={30} color={'white'}/>
+          </TouchableOpacity>
         </ImageBackground>
       </View>
 

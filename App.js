@@ -46,6 +46,7 @@ export default function App() {
   function AuthNavigator() {
     return (
       <AuthStack.Navigator screenOptions={stackScreenOptions}>
+        {/*<AppStack.Screen name="MainMenu" component={MainMenu} options={{ headerShown: true, title: strings.mainMenu, gestureEnabled: false, headerLeft: null }} />*/}
         <AuthStack.Screen name="Main" component={Main} options={{ headerShown: false, title: 'Main' }} />
         <AuthStack.Screen name="Register" component={Register} options={{ title: strings.register }} />
         <AuthStack.Screen name="Login" component={Login} options={{ title: strings.login }} />
