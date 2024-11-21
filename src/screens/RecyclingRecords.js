@@ -9,16 +9,24 @@ import { getButtonContent } from '../components/RecyclingRegisterButtonLogic';
 import strings from '../util/strings';
 import firebase from '../database/firebase';
 import { Alert } from 'react-native';
+import LocationComponent from '../components/LocationComponent';
 
 export default function Main({ navigation, route }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [imageUri, setImageUri] = useState(null); // Para almacenar la URI de la imagen capturada
+  const [location, setLocation] = useState(null);
 
   // Obtener el userId desde los parámetros
   const userId = route.params?.userId;
   console.log("User ID recibido desde route:", userId);
+
+  // Establece la ubicación cuando la recibes del componente Location
+  const handleLocationRetrieved = (location) => {
+    setLocation(location);
+    console.log(location);
+  };
 
   const [state, setState] = useState ({
     weight: "",
@@ -27,7 +35,6 @@ export default function Main({ navigation, route }) {
     date: new Date().toLocaleDateString(),
   });
   
-
   useEffect(() => {
     if(route.params?.photoUri){
       setImageUri(route.params.photoUri);
@@ -53,7 +60,6 @@ export default function Main({ navigation, route }) {
 
      // Actualizar el contenido del botón con base en el índice
     setButtonContent(getButtonContent(index));
-    //handleChangeText('recyclingType', index);
   };
 
   const openCamera = async () => {
@@ -75,7 +81,14 @@ export default function Main({ navigation, route }) {
       alert('No pueden haber campos vacios')
     }else{
       console.log(state);
+
       try{
+        // Verifica si tienes una ubicación
+        if (!location) {
+          alert('Ubicación no disponible');
+          return;
+        }
+
         // Guardar datos en Firebase
         await firebase.db.collection('recyclingRecords').add({
           userId: state.userId,
@@ -84,6 +97,8 @@ export default function Main({ navigation, route }) {
           peopleNum: state.peopleNum,
           date: state.date,
           imageUri: imageUri,
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
         });
         Alert.alert (
           'Información de almacenaje',
@@ -109,6 +124,9 @@ export default function Main({ navigation, route }) {
           style={mainStyles.background}
         >
           <Overlay />
+
+           {/* Aquí usamos el LocationComponent */}
+           <LocationComponent onLocationRetrieved={handleLocationRetrieved} />
 
           <View style={mainStyles.imagesRow}>
             <TouchableOpacity onPress={() => handlePress(1)}>
