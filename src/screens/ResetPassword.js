@@ -18,8 +18,15 @@ export default function ResetPassword({navigation}){
     await sendPasswordResetEmail(auth, email)
     .then(() => alert("Código de recuperación de contraseña ha sido enviado al email"))
     .catch(error => {
-      console.log(error);
-      Alert.alert(error.message)
+      if (error.code === 'auth/missing-email') {
+        Alert.alert('Por favor ingrese un correo');
+      } 
+      else if (error.code === 'auth/invalid-email') {
+          Alert.alert('Correo No válido.');
+      }        
+      else {
+      Alert.alert('Error', 'No se pudo recuperar la contraseña');
+      }
     })
   }
   return (

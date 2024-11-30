@@ -35,8 +35,18 @@ export default function Login(){
             });
         })
         .catch(error => {
-            console.log(error);
-            Alert.alert(error.message)
+            if (error.code === 'auth/invalid-credential') {
+                Alert.alert('El correo o la contraseña no es válida.');
+            } 
+            else if (error.code === 'auth/invalid-email') {
+                Alert.alert('Ingrese un correo válido.');
+            }
+            else if (error.code ==='auth/missing-password'){
+                Alert.alert('Ingrese una contraseña.')
+            }        
+            else {
+            Alert.alert('Error', 'No se pudo iniciar sesión, intente nuevamente.');
+            }
         })
     }
 
