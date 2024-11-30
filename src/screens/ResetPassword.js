@@ -1,11 +1,28 @@
-import { View, ImageBackground, TextInput, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ImageBackground, TextInput, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import React from 'react'
 import resetPasswordStyles from '../styles/resetPasswordStyles';
 import ButtonResetPassword from '../components/ButtonResetPassword';
 import Overlay from '../components/Overlay';
+import { useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase-config';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 export default function ResetPassword({navigation}){
-    return (
+  
+  const app = initializeApp(firebaseConfig)
+  const auth = getAuth(app);
+  const [email, setEmail] = useState('');
+ 
+  const handlePassword = async () => {
+    await sendPasswordResetEmail(auth, email)
+    .then(() => alert("Código de recuperación de contraseña ha sido enviado al email"))
+    .catch(error => {
+      console.log(error);
+      Alert.alert(error.message)
+    })
+  }
+  return (
       <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -24,12 +41,15 @@ export default function ResetPassword({navigation}){
             <View style={resetPasswordStyles.form}>
                 
                 <TextInput
+                  onChangeText={(text) => setEmail(text)}
                     style={resetPasswordStyles.input}
                     placeholder="E-mail"
                     placeholderTextColor="#176b00"
                 />
 
-                <ButtonResetPassword />
+                <ButtonResetPassword 
+                  handle={handlePassword}
+                />
 
             </View>
           </ImageBackground>
