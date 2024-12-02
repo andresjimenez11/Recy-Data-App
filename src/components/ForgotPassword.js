@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
     forgotPassword: {
         marginTop: '1%',
         fontSize: 16 * scale,
-        color: '#6B7280',
+        color: '#a7a7a7',
     },
 })
