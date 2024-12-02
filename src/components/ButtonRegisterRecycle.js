@@ -1,13 +1,21 @@
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import strings from '../util/strings';
 
 const { width } = Dimensions.get('window');
 const baseWidth = 375;  // Ancho base de referencia (por ejemplo, iPhone X)
 const scale = width / baseWidth;
 
-export default function ButtonRegisterRecycle() {
+export default function ButtonRegisterRecycle({onPress}) {
+    console.log("Propiedad inPress recibida:" , onPress);
     return (
-        <TouchableOpacity style={styles.registerButton}>
-            <Text style={styles.registerButtonText}>Agregar</Text>
+        <TouchableOpacity 
+            style={styles.registerButton} 
+            onPressIn={() => {
+                console.log("Boton presionado");
+                onPress();
+        }}
+            >
+            <Text style={styles.registerButtonText}>{strings.add}</Text>
         </TouchableOpacity>
     );
 }

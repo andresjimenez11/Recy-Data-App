@@ -1,10 +1,12 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, ImageBackground, TextInput, Button, Alert } from 'react-native';
 import React from 'react'
 import mainStyles from '../styles/mainStyles';
-import ButtonLogin from '../components/ButtonLogin';
 import ButtonRegister from '../components/ButtonRegister';
 import ForgotPassword from '../components/ForgotPassword';
 import Overlay from '../components/Overlay';
+
+import strings from '../util/strings';
+import ButtonLgMain from '../components/ButtonLgMain';
 
 export default function Main({navigation}){
     return (
@@ -33,10 +35,7 @@ export default function Main({navigation}){
         {/* Contenedor de botones y enlace */}
         <View style={mainStyles.buttonsContainer}>
           
-          <ButtonLogin 
-            stack='Auth'
-            targetScreen='Login'
-          />
+          <ButtonLgMain/>
 
           <ButtonRegister/>
   
@@ -46,3 +45,5 @@ export default function Main({navigation}){
       </View>
     )
 }
+
+

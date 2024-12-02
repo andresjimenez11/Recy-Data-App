@@ -13,6 +13,12 @@ import MainMenu from './src/screens/MainMenu';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StyleSheet, Text } from 'react-native';
+import AboutUs from './src/screens/AboutUs';
+import strings from './src/util/strings';
+import Statistics from './src/screens/Statistics'; 
+import Camera from './src/screens/Camera';
+import PhotoPreview from './src/screens/PhotoPreview';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,13 +46,14 @@ export default function App() {
   function AuthNavigator() {
     return (
       <AuthStack.Navigator screenOptions={stackScreenOptions}>
+        {/*<AppStack.Screen name="MainMenu" component={MainMenu} options={{ headerShown: true, title: strings.mainMenu, gestureEnabled: false, headerLeft: null }} />*/}
         <AuthStack.Screen name="Main" component={Main} options={{ headerShown: false, title: 'Main' }} />
-        <AuthStack.Screen name="Register" component={Register} options={{ title: 'Registro' }} />
-        <AuthStack.Screen name="Login" component={Login} options={{ title: 'Inicio de sesión' }} />
+        <AuthStack.Screen name="Register" component={Register} options={{ title: strings.register }} />
+        <AuthStack.Screen name="Login" component={Login} options={{ title: strings.login }} />
         <AuthStack.Screen name="ResetPassword" component={ResetPassword} options={{
           headerShown: true,
           headerTitle: () => (
-            <Text style={styles.headerTitle}>Recuperar{'\n'}contraseña</Text>
+            <Text style={styles.headerTitle}>{strings.recover}{'\n'}{strings.password}</Text>
           ),
         }} />
       </AuthStack.Navigator>
@@ -57,10 +64,13 @@ export default function App() {
   function AppNavigator() {
     return (
       <AppStack.Navigator screenOptions={stackScreenOptions}>
-        <AppStack.Screen name="Home" component={Home} />
-        <AppStack.Screen name="MainMenu" component={MainMenu} options={{ headerShown: false, title: 'Menu principal' }} />
-        <AppStack.Screen name="RecyclingRecords" component={RecyclingRecords} options={{ title: 'Registro de reciclaje' }} />
-        <AppStack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList} options={{ title: "Lista de Registros de Reciclaje" }} />
+        <AppStack.Screen name="MainMenu" component={MainMenu} options={{ headerShown: true, title: strings.mainMenu, gestureEnabled: false, headerLeft: null }} />
+        <AppStack.Screen name="RecyclingRecords" component={RecyclingRecords} options={{ title: strings.recyclingRecord }} />
+        <AppStack.Screen name="RecyclingRecordsList" component={RecyclingRecordsList} options={{ title: strings.recyclingRecordList }} />
+        <AppStack.Screen name="AboutAs" component={AboutUs} options={{title: strings.AboutUs}}/>
+        <AppStack.Screen name="Statistics" component={Statistics} options={{headerShow: true, title: strings.statistics}}/>
+        <AppStack.Screen name='Camera' component={Camera} options={{title: strings.camera}}/>
+        <AppStack.Screen name='PhotoPreview' component={PhotoPreview} options={{title: strings.PhotoPreview}}/>
       </AppStack.Navigator>
     );
   }
