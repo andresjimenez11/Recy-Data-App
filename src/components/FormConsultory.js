@@ -10,8 +10,7 @@ import strings from '../util/strings';
 // Firebase 
 import app, { db } from '../../firebase-config';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
-import firebase from 'firebase/compat/app';
-import { collection, addDoc } from "firebase/firestore";
+import firebase from '../database/firebase';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -63,7 +62,7 @@ export default function FormConsultory() {
       const user = userCredential.user;
 
       // Agrega los datos adicionales a Firestore
-      await addDoc(collection(db, 'usuarios'), {
+      await firebase.db.collection('usuarios').add({
         userId: user.uid,
         selectedType,
         selectedSubType,
