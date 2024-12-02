@@ -67,7 +67,7 @@ export default StyleSheet.create({
 
    logoutButton:{
     position: 'absolute',
-    top: 50,
+    top: 30,
     right: 20,
     padding: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
