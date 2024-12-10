@@ -14,6 +14,8 @@ import firebase from '../database/firebase';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { validatePassword } from '../util/validation';
+
 const auth = getAuth(app);
 
 export default function FormAcademy() {
@@ -38,9 +40,9 @@ export default function FormAcademy() {
 
   /* Estados Contenedor Info Institucional */
   const [selectedTypeInfo, setSelectedTypeInfo] = useState('Primaria');
-  const [selectedNameInfo, setSelectedNameInfo] = useState('');
-  const [selectedGradeInfo, setSelectedGradeInfo] = useState('');
-  const [selectedCourseInfo, setSelectedCourseInfo] = useState('');
+  const [selectedNameInfo, setSelectedNameInfo] = useState('Escuela 1');
+  const [selectedGradeInfo, setSelectedGradeInfo] = useState('Primero');
+  const [selectedCourseInfo, setSelectedCourseInfo] = useState('Curso');
 
   const handleCreateAccount = async () => {
 
@@ -59,6 +61,14 @@ export default function FormAcademy() {
       ) {
         // Mostrar mensaje de error si falta algún campo
         Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
+        return;
+      }
+
+      if (!validatePassword(password)) {
+        Alert.alert(
+          'Contraseña inválida',
+          'La contraseña debe tener al menos 8 caracteres, incluyendo una letra, un número y un carácter especial.'
+        );
         return;
       }
 

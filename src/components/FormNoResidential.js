@@ -14,6 +14,8 @@ import firebase from '../database/firebase';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { validatePassword } from '../util/validation';
+
 const auth = getAuth(app);
 
 export default function FormNoResidential() {
@@ -53,6 +55,14 @@ export default function FormNoResidential() {
       ) {
         // Mostrar mensaje de error si falta algún campo
         Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
+        return;
+      }
+
+      if (!validatePassword(password)) {
+        Alert.alert(
+          'Contraseña inválida',
+          'La contraseña debe tener al menos 8 caracteres, incluyendo una letra, un número y un carácter especial.'
+        );
         return;
       }
 
