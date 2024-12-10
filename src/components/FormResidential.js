@@ -14,6 +14,8 @@ import firebase from '../database/firebase';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { validatePassword } from '../util/validation';
+
 const auth = getAuth(app);
 
 export default function FormResidential() {
@@ -36,35 +38,36 @@ export default function FormResidential() {
   const [noPeople, setNoPeople] = useState('');
   const [password, setPassword] = useState('');
 
- 
   const handleCreateAccount = async () => {
-
     if (
-        !noContract.trim() ||
-        !name.trim() ||
-        !lastName.trim() ||
-        !street.trim() ||
-        !n1.trim() ||
-        !n2.trim() ||
-        !n3.trim() ||
-        !phone.trim() ||
-        !email.trim() ||
-        !noPeople.trim() ||
-        !password.trim()
-      ) {
-        // Mostrar mensaje de error si falta algún campo
-        Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
-        return;
-      }
-
+      !noContract.trim() ||
+      !name.trim() ||
+      !lastName.trim() ||
+      !street.trim() ||
+      !n1.trim() ||
+      !n2.trim() ||
+      !n3.trim() ||
+      !phone.trim() ||
+      !email.trim() ||
+      !noPeople.trim() ||
+      !password.trim()
+    ) {
+      Alert.alert('Faltan datos por llenar', 'Todos los campos deben estar completados');
+      return;
+    }
+  
+    if (!validatePassword(password)) {
+      Alert.alert(
+        'Contraseña inválida',
+        'La contraseña debe tener al menos 8 caracteres, incluyendo una letra, un número y un carácter especial.'
+      );
+      return;
+    }
+  
     try {
-      // Crea el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Agrega los datos adicionales a Firestore
-
-
+  
       await firebase.db.collection('usuarios').add({
         userId: user.uid,
         selectedType,
@@ -82,34 +85,30 @@ export default function FormResidential() {
         email,
         noPeople,
       });
-
+  
       Alert.alert(
         'Éxito',
         'Cuenta creada con éxito',
         [
-            {
-                text: 'OK',
-                onPress: () => navigation.navigate('Login'), // Redirige después de cerrar el alert
-            },
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('Login'),
+          },
         ],
         { cancelable: false }
-    );
-    
+      );
     } catch (error) {
-        if (error.code === 'auth/email-already-in-use') {
-            Alert.alert('Este correo ya está en uso. Por favor, utiliza otro.');
-        } 
-        else if (error.code === 'auth/invalid-email') {
-            Alert.alert('Correo No válido.');
-        }        
-        else {
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('Este correo ya está en uso. Por favor, utiliza otro.');
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert('Correo No válido.');
+      } else {
         console.error("Error al crear la cuenta o guardar los datos:", error);
         Alert.alert('Error', 'No se pudo registrar el usuario');
-        }
+      }
     }
   };
   
-
   return (
 
         <View>
