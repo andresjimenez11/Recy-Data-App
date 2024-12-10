@@ -83,6 +83,15 @@ const formStyles = StyleSheet.create({
         marginVertical: 5,
         overflow: 'hidden',  // Asegura que el contenido se ajuste al borde redondeado
       },
+      pickerContainer3: {
+        width: '40%',
+        marginRight: 10,
+        height: 50,
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        borderRadius: 10,
+        marginVertical: 5,
+        overflow: 'hidden',  // Asegura que el contenido se ajuste al borde redondeado
+      },
       pickerRight: {
         color: '#176b00',
         padding: 10,

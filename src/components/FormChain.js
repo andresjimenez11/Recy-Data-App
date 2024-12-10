@@ -27,7 +27,7 @@ export default function FormChain() {
   const [noContract, setNoContract] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [street, setSreet] = useState('');
+  const [street, setSreet] = useState('Calle');
   const [n1, setN1] = useState('');
   const [n2, setN2] = useState('');
   const [n3, setN3] = useState('');
@@ -174,12 +174,31 @@ export default function FormChain() {
             </View>
 
             <View style={formStyles.containerForm}>
-                <TextInput
-                    onChangeText={(text) => setSreet(text)}
-                    style={[formStyles.input, formStyles.inputAddress]}
-                    placeholder="Calle"
-                    placeholderTextColor={colors.primary}
-                />
+                <View style={formStyles.pickerContainer3}>
+                    <Picker
+                        style={formStyles.pickerRight}
+                        selectedValue={street}
+                        onValueChange={(itemValue) => setSreet(itemValue)}
+                    >
+                        <Picker.Item label="Calle" value="Calle" />
+                        <Picker.Item label="Carrera" value="Carrera" />
+                        <Picker.Item label="Carretera" value="Carretera" />
+                        <Picker.Item label="Circunvalar" value="Circunvalar" />
+                        <Picker.Item label="Manga" value="Manga" />
+                        <Picker.Item label="Kilometro" value="Kilometro" />
+                        <Picker.Item label="Finca" value="Finca" />
+                        <Picker.Item label="Manzana" value="Manzana" />
+                        <Picker.Item label="Vereda" value="Vereda" />
+                        <Picker.Item label="Vía" value="Vía" />
+                        <Picker.Item label="Hacienda" value="Hacienda" />
+                        <Picker.Item label="Corregimiento" value="Corregimiento" />
+                        <Picker.Item label="Avenida" value="Avenida" />
+                        <Picker.Item label="Diagonal" value="Diagonal" />
+                        <Picker.Item label="Transversal" value="Transversal" />
+                        <Picker.Item label="Circular" value="Circular" />
+                        <Picker.Item label="Callejon" value="Callejon" />
+                    </Picker>
+                </View>
                 <TextInput
                     onChangeText={(text) => setN1(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
