@@ -53,11 +53,11 @@ export default function RecyclingList({ navigation, route }) {
   const getRecyclingTypeLabel = type => {
     switch (type) {
       case 1:
-        return strings.labelCleanDryWaste; // "Residuos limpios y secos"
+        return strings.inorganicRecycling; // "Aprovechamiento inorganico"
       case 2:
-        return strings.labelContaminatedWaste; // "Residuos contaminados"
+        return strings.unusableWasteDisposal; // "Disposición inservible"
       case 3:
-        return strings.labelFoodWaste; // "Residuos orgánicos"
+        return strings.organicRecycling; // "Aprovechamiento orgánico"
       default:
         return strings.unknownType; // "Tipo desconocido" o cualquier valor predeterminado
     }
