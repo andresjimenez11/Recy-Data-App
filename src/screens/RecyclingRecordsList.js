@@ -25,13 +25,14 @@ export default function RecyclingList({ navigation, route }) {
 
       const recyclings = [];
       querySnapshot.docs.forEach(doc => {
-        const { recyclingType, weight, peopleNum, date } = doc.data();
+        const { recyclingType, weight, peopleNum, startDate,endDate } = doc.data();
         recyclings.push({
           id: doc.id,
           recyclingType,
           weight,
           peopleNum,
-          date,
+          startDate,
+          endDate,
           userId
         });
       });
@@ -101,7 +102,8 @@ export default function RecyclingList({ navigation, route }) {
                         icon={{ name: 'recycle', type: 'font-awesome', color: '#4CAF50' }}                        
                       />
                       <ListItem.Content>
-                        <ListItem.Title>{strings.date}: {recyclinRecord.date}</ListItem.Title>
+                        <ListItem.Title>{strings.startDate}: {recyclinRecord.startDate}</ListItem.Title>
+                        <ListItem.Title>{strings.endDate}:{recyclinRecord.endDate}</ListItem.Title>
                         <ListItem.Subtitle>ID Usuario: {recyclinRecord.userId}</ListItem.Subtitle>
                         <ListItem.Subtitle>ID: {recyclinRecord.id}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.weight}: {recyclinRecord.weight}</ListItem.Subtitle>

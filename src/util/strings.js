@@ -59,7 +59,9 @@ const strings = {
     confirmLogoutMessage: "¿Estás seguro de que quieres cerrar sesión?",
     cancelLogout: "Cierre de sesión cancelado",
     confirm: "Confirmar",
-    LoggingOut: "Cerrando sesión"
+    LoggingOut: "Cerrando sesión",
+    endDate: 'Fecha final',
+    startDate: 'Fecha inicio'
 
 
     
