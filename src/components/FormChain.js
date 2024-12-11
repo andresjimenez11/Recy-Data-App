@@ -27,12 +27,12 @@ export default function FormChain() {
   const [noContract, setNoContract] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [street, setSreet] = useState('');
+  const [street, setSreet] = useState('Calle');
   const [n1, setN1] = useState('');
   const [n2, setN2] = useState('');
   const [n3, setN3] = useState('');
-  const [selectedCommune, setSelectedCommune] = useState('Comuna 1');
-  const [selectedCity, setSelectedCity] = useState('Bucaramanga');
+  const [selectedCity, setSelectedCity] = useState('68001 - Bucaramaga');
+  const [selectedCommune, setSelectedCommune] = useState('Comuna 1 Norte');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [noPeople, setNoPeople] = useState('');
@@ -174,12 +174,31 @@ export default function FormChain() {
             </View>
 
             <View style={formStyles.containerForm}>
-                <TextInput
-                    onChangeText={(text) => setSreet(text)}
-                    style={[formStyles.input, formStyles.inputAddress]}
-                    placeholder="Calle"
-                    placeholderTextColor={colors.primary}
-                />
+                <View style={formStyles.pickerContainer3}>
+                    <Picker
+                        style={formStyles.pickerRight}
+                        selectedValue={street}
+                        onValueChange={(itemValue) => setSreet(itemValue)}
+                    >
+                        <Picker.Item label="Calle" value="Calle" />
+                        <Picker.Item label="Carrera" value="Carrera" />
+                        <Picker.Item label="Carretera" value="Carretera" />
+                        <Picker.Item label="Circunvalar" value="Circunvalar" />
+                        <Picker.Item label="Manga" value="Manga" />
+                        <Picker.Item label="Kilometro" value="Kilometro" />
+                        <Picker.Item label="Finca" value="Finca" />
+                        <Picker.Item label="Manzana" value="Manzana" />
+                        <Picker.Item label="Vereda" value="Vereda" />
+                        <Picker.Item label="Vía" value="Vía" />
+                        <Picker.Item label="Hacienda" value="Hacienda" />
+                        <Picker.Item label="Corregimiento" value="Corregimiento" />
+                        <Picker.Item label="Avenida" value="Avenida" />
+                        <Picker.Item label="Diagonal" value="Diagonal" />
+                        <Picker.Item label="Transversal" value="Transversal" />
+                        <Picker.Item label="Circular" value="Circular" />
+                        <Picker.Item label="Callejon" value="Callejon" />
+                    </Picker>
+                </View>
                 <TextInput
                     onChangeText={(text) => setN1(text)}
                     style={[formStyles.input, formStyles.inputAddressNumber]}
@@ -213,30 +232,69 @@ export default function FormChain() {
                 <View style={formStyles.pickerContainer2}>
                     <Picker
                         style={formStyles.pickerRight}
-                        selectedValue={selectedCommune}
-                        onValueChange={(itemValue) => setSelectedCommune(itemValue)}
+                        selectedValue={selectedCity}
+                        onValueChange={(itemValue) => setSelectedCity(itemValue)}
                     >
-                        <Picker.Item label="Comuna 1" value="Comuna 1" />
-                        <Picker.Item label="Comuna 2" value="Comuna 2" />
-                        <Picker.Item label="Comuna 3" value="Comuna 3" />
+                        <Picker.Item label="68001 - Bucaramaga" value="68001 - Bucaramaga" />
+                        <Picker.Item label="68081 - Barrancabermeja" value="68081 - Barrancabermeja" />
                     </Picker>
                 </View>
             </View> 
                 
+            {selectedCity === '68001 - Bucaramaga' && 
+                <>
+                    <View style={formStyles.containerForm}>
+                        <View style={formStyles.pickerContainer2}>
+                            <Picker
+                                style={formStyles.pickerRight}
+                                selectedValue={selectedCommune}
+                                onValueChange={(itemValue) => setSelectedCommune(itemValue)}
+                            >
+                                <Picker.Item label="Comuna 1 Norte" value="Comuna 1 Norte" />
+                                <Picker.Item label="Comuna 2 Nororiental" value="Comuna 2 Nororiental" />
+                                <Picker.Item label="Comuna 3 San Francisco" value="Comuna 3 San Francisco" />
+                                <Picker.Item label="Comuna 4 Occidental" value="Comuna 4 Occidental" />
+                                <Picker.Item label="Comuna 5 García Rovira" value="Comuna 5 García Rovira" />
+                                <Picker.Item label="Comuna 6 La Concordia" value="Comuna 6 La Concordia" />
+                                <Picker.Item label="Comuna 7 La Ciudadela" value="Comuna 7 La Ciudadela" />
+                                <Picker.Item label="Comuna 8 Sur Occidente" value="Comuna 8 Sur Occidente" />
+                                <Picker.Item label="Comuna 9 La Pedregosa" value="Comuna 9 La Pedregosa" />
+                                <Picker.Item label="Comuna 10 Provenza" value="Comuna 10 Provenza" />
+                                <Picker.Item label="Comuna 11 Sur" value="Comuna 11 Sur" />
+                                <Picker.Item label="Comuna 12 Cabecera del llano" value="Comuna 12 Cabecera del llano" />
+                                <Picker.Item label="Comuna 13 Oriental" value="Comuna 13 Oriental" />
+                                <Picker.Item label="Comuna 14 Morrorico" value="Comuna 14 Morrorico" />
+                                <Picker.Item label="Comuna 15 Centro" value="Comuna 15 Centro" />
+                                <Picker.Item label="Comuna 16 Lagos del Cacique" value="Comuna 16 Lagos del Cacique" />
+                                <Picker.Item label="Comuna 17 Mutis" value="Comuna 17 Mutis" />
+                            </Picker>
+                        </View>
+                    </View> 
+                </>   
+            }
 
-            <View style={formStyles.containerForm}>
-                <View style={formStyles.pickerContainer2}>
-                    <Picker
-                        style={formStyles.pickerRight}
-                        selectedValue={selectedCity}
-                        onValueChange={(itemValue) => setSelectedCity(itemValue)}
-                    >
-                        <Picker.Item label="Bucaramanga" value="Bucaramanga" />
-                        <Picker.Item label="Barrancabermeja" value="Barrancabermeja" />
 
-                    </Picker>
-                </View>
-            </View> 
+            {selectedCity === '68081 - Barrancabermeja' && 
+                <>
+                    <View style={formStyles.containerForm}>
+                        <View style={formStyles.pickerContainer2}>
+                            <Picker
+                                style={formStyles.pickerRight}
+                                selectedValue={selectedCommune}
+                                onValueChange={(itemValue) => setSelectedCommune(itemValue)}
+                            >
+                                <Picker.Item label="Comuna 1" value="Comuna 1" />
+                                <Picker.Item label="Comuna 2" value="Comuna 2" />
+                                <Picker.Item label="Comuna 3" value="Comuna 3" />
+                                <Picker.Item label="Comuna 4" value="Comuna 4" />
+                                <Picker.Item label="Comuna 5" value="Comuna 5" />
+                                <Picker.Item label="Comuna 6" value="Comuna 6" />
+                                <Picker.Item label="Comuna 7" value="Comuna 7" />
+                            </Picker>
+                        </View>
+                    </View> 
+                </>   
+            }
 
             <View style={formStyles.containerForm}>
                 <TextInput
