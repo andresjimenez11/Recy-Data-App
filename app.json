@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "recy-data-app",
     "slug": "recy-data-app",
     "version": "1.0.0",
@@ -21,6 +22,7 @@
       },
       "package": "com.anonymous.recydataapp"
     },
+    
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
