@@ -19,8 +19,8 @@ export const handleRegisterRecycling = (navigation, userId) => {
   export const handleStatistics = (navigation) => {
     // Lógica para navegar a la pantalla de estadísticas
     console.log("Botón Estadisticas")
-    //navigation.navigate('Statistics');
-    alert("Función aún no disponible")
+    navigation.navigate('Statistics');
+    //alert("Función aún no disponible")
   };
   
   export const handleSettings = (navigation) => {
