@@ -13,8 +13,10 @@ import LocationComponent from '../components/LocationComponent';
 
 export default function Main({ navigation, route }) {
   const [buttonContent, setButtonContent] = useState(getButtonContent(1));
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date()); // Nueva fecha final
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false); // Controlador de la fecha final
   const [imageUri, setImageUri] = useState(null); // Para almacenar la URI de la imagen capturada
   const [location, setLocation] = useState(null);
 
@@ -28,13 +30,14 @@ export default function Main({ navigation, route }) {
     console.log(location);
   };
 
-  const [state, setState] = useState ({
+  const [state, setState] = useState({
     weight: "",
     peopleNum: "",
     recyclingType: 1,
-    date: new Date().toLocaleDateString(),
+    startDate: new Date().toLocaleDateString(), // Fecha inicial
+    endDate: new Date().toLocaleDateString(), // Fecha final
   });
-  
+
   useEffect(() => {
     if(route.params?.photoUri){
       setImageUri(route.params.photoUri);
@@ -55,10 +58,11 @@ export default function Main({ navigation, route }) {
       weight: "",        // Limpiar el campo de peso
       peopleNum: "",     // Limpiar el campo de número de personas
       recyclingType: index, // Establecer el tipo de reciclaje
-      date: new Date().toLocaleDateString(), // Restablecer la fecha
+      startDate: new Date().toLocaleDateString(), // Restablecer la fecha inicial
+      endDate: new Date().toLocaleDateString(), // Restablecer la fecha final
     });
 
-     // Actualizar el contenido del botón con base en el índice
+    // Actualizar el contenido del botón con base en el índice
     setButtonContent(getButtonContent(index));
   };
 
@@ -67,19 +71,28 @@ export default function Main({ navigation, route }) {
     navigation.navigate('Camera',{userId});
   };
 
-  const onDateChange = (event, selectedDate) => {
+  const onStartDateChange = (event, selectedDate) => {
     if (selectedDate){
       const formattedDate = selectedDate.toLocaleDateString();
-      setDate(selectedDate);
-      handleChangeText('date', formattedDate);
+      setStartDate(selectedDate);
+      handleChangeText('startDate', formattedDate);
     }
-    setShowDatePicker(false);
+    setShowStartDatePicker(false);
+  };
+
+  const onEndDateChange = (event, selectedDate) => {
+    if (selectedDate){
+      const formattedDate = selectedDate.toLocaleDateString();
+      setEndDate(selectedDate);
+      handleChangeText('endDate', formattedDate);
+    }
+    setShowEndDatePicker(false);
   };
 
   const saveNewRecycling = async() => {
     if (state.weight === "" || state.peopleNum === "") {
-      alert('No pueden haber campos vacios')
-    }else{
+      alert('No pueden haber campos vacios');
+    } else {
       console.log(state);
 
       try{
@@ -95,7 +108,8 @@ export default function Main({ navigation, route }) {
           recyclingType: state.recyclingType,
           weight: state.weight,
           peopleNum: state.peopleNum,
-          date: state.date,
+          startDate: state.startDate,
+          endDate: state.endDate,
           imageUri: imageUri,
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
@@ -109,12 +123,11 @@ export default function Main({ navigation, route }) {
           {cancelable: false}
         );
         
-      }catch(error){
+      } catch(error) {
         console.log("Error al guardar el registro: ", error);     
-
       }
     }
-  }
+  };
 
   return (
     <View style={mainStyles.container}>
@@ -125,8 +138,8 @@ export default function Main({ navigation, route }) {
         >
           <Overlay />
 
-           {/* Aquí usamos el LocationComponent */}
-           <LocationComponent onLocationRetrieved={handleLocationRetrieved} />
+          {/* Aquí usamos el LocationComponent */}
+          <LocationComponent onLocationRetrieved={handleLocationRetrieved} />
 
           <View style={mainStyles.imagesRow}>
             <TouchableOpacity onPress={() => handlePress(1)}>
@@ -179,33 +192,61 @@ export default function Main({ navigation, route }) {
                 onChangeText={(value) => handleChangeText('peopleNum', value)}
               />
 
+              {/* Fecha inicial */}
               <View style={mainStyles.dateContainer}>
-                <Text style={mainStyles.label}>{strings.assignDate}</Text>
+                <Text style={mainStyles.label}>{strings.startDate}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <TextInput 
-                    placeholder={strings.assignDate}
+                    placeholder={strings.startDate}
                     style={[mainStyles.input, { flex: 1 }]}
                     editable={false}
-                    value={state.date}
-                    //value={date.toLocaleDateString()}
+                    value={state.startDate}
                   />
                   <TouchableOpacity 
-                    onPress={() => setShowDatePicker(true)} 
-                    style={[mainStyles.dateButton, { marginLeft: 10 }]}
-                  >
+                    onPress={() => setShowStartDatePicker(true)} 
+                    style={[mainStyles.dateButton, { marginLeft: 10 }]}>
                     <Icon name='calendar' size={40} color="white"/>
                   </TouchableOpacity>
                 </View>
               </View>
 
-              {showDatePicker && (
+              {/* Fecha final */}
+              <View style={mainStyles.dateContainer}>
+                <Text style={mainStyles.label}>{strings.endDate}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <TextInput 
+                    placeholder={strings.endDate}
+                    style={[mainStyles.input, { flex: 1 }]}
+                    editable={false}
+                    value={state.endDate}
+                  />
+                  <TouchableOpacity 
+                    onPress={() => setShowEndDatePicker(true)} 
+                    style={[mainStyles.dateButton, { marginLeft: 10 }]}>
+                    <Icon name='calendar' size={40} color="white"/>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              {showStartDatePicker && (
                 <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
+                  testID="startDateTimePicker"
+                  value={startDate}
                   mode="date"
                   is24Hour={true}
                   display="default"
-                  onChange={onDateChange}
+                  onChange={onStartDateChange}
+                />
+              )}
+
+              {showEndDatePicker && (
+                <DateTimePicker
+                  testID="endDateTimePicker"
+                  value={endDate}
+                  mode="date"
+                  is24Hour={true}
+                  display="default"
+                  onChange={onEndDateChange}
                 />
               )}
 
