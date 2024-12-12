@@ -24,6 +24,9 @@ export default function Main({ navigation, route }) {
   const userId = route.params?.userId;
   console.log("User ID recibido desde route:", userId);
 
+  const qrCodeData = route.params?.qrCodeData;
+  console.log('DAtos QR recibidos: ', qrCodeData)
+
   // Establece la ubicación cuando la recibes del componente Location
   const handleLocationRetrieved = (location) => {
     setLocation(location);
@@ -36,17 +39,19 @@ export default function Main({ navigation, route }) {
     recyclingType: 1,
     startDate: new Date().toLocaleDateString(), // Fecha inicial
     endDate: new Date().toLocaleDateString(), // Fecha final
+    qrCodeData: "", // Inicializa con una cadena vacía
   });
 
   useEffect(() => {
-    if(route.params?.photoUri){
-      setImageUri(route.params.photoUri);
-    }
-
     if(!state.userId && userId){
       setState((prevState) => ({...prevState, userId}));
     }
-  }, [route.params?.photoUri, userId]);
+
+    if (!state.qrCodeData && qrCodeData) {
+      setState((prevState) => ({ ...prevState, qrCodeData }));
+      console.log("Datos de QR actualizados: ", qrCodeData);
+    }
+  }, [route.params?.userId, qrCodeData]);
 
   const handleChangeText = (inputT, value) => {
     setState({...state, [inputT]: value})
@@ -90,7 +95,7 @@ export default function Main({ navigation, route }) {
   };
 
   const saveNewRecycling = async() => {
-    if (state.weight === "" || state.peopleNum === "") {
+    if (state.weight === "" || state.peopleNum === "" || state.qrCodeData === "") {
       alert('No pueden haber campos vacios');
     } else {
       console.log(state);
@@ -110,7 +115,7 @@ export default function Main({ navigation, route }) {
           peopleNum: state.peopleNum,
           startDate: state.startDate,
           endDate: state.endDate,
-          imageUri: imageUri,
+          qrCodeData: state.qrCodeData,
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
         });
@@ -251,7 +256,7 @@ export default function Main({ navigation, route }) {
               )}
 
               <View style={mainStyles.cameraContainer}>
-                <Text style={mainStyles.label}>{strings.photoLabel}</Text>
+                <Text style={mainStyles.label}>{strings.scanQR}</Text>
                 <TouchableOpacity onPress={openCamera}>
                   <Image 
                     source={require('../../assets/images/Recurso 16.png')}

@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {useCameraPermissions} from 'expo-camera';
 import { Camera, CameraType, FlashMode } from 'expo-camera/legacy';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import strings from '../util/strings';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function CameraScreen({ navigation, route }) {
   const [type, setType] = useState(CameraType.back);
@@ -12,8 +13,10 @@ export default function CameraScreen({ navigation, route }) {
   const [flashMode, setFlashMode] = useState(FlashMode.off);
   const cameraRef = useRef(null);
   const [isCameraActive, setIsCameraActive] = useState(true);
+  const [isScanning, setIsScanning] = useState(true);
   const userId = route.params?.userId;
   console.log("User ID recibido desde route:", userId);
+  const [qrCodeData, setQrCodeData] = useState(null);
 
   useEffect(() => {
     // Solicitar permisos de la cámara si no están concedidos
@@ -70,40 +73,58 @@ export default function CameraScreen({ navigation, route }) {
     if (flashMode === FlashMode.auto) return 'bolt';
   };
 
-  const takePicture = async () => {
-    if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync();
-      console.log(photo);
-      
-      navigation.navigate('PhotoPreview', { photoUri: photo.uri, userId });
-    }
+  const handleBarCodeScanned = ({type, data}) => {
+    if (!isScanning) return;
+    setIsScanning(false);
+    setQrCodeData(data); //Guarda los datos escaneados del QR
+    console.log('Datos del QR: ', data);
+
+     // Mostrar un Alert con los datos escaneados
+     Alert.alert(
+      strings.scannedData,
+      `${strings.confirmDataPrompt}\n\n${data}`,
+      [
+        {
+          text: strings.cancel,
+          style: 'cancel',
+          onPress: () => setIsScanning(true),
+
+        },
+        {
+          text: strings.confirm,
+          onPress: () => {
+            //Navega al registro de reciclaje
+            navigation.navigate('RecyclingRecords', {userId, qrCodeData: data});
+
+          },          
+        },
+      ]
+     );    
   };
 
   return (
     <View style={styles.container}>
       {isCameraActive ?(
-      <Camera ref={cameraRef} style={styles.camera} type={type} flashMode={flashMode}>
+      <BarCodeScanner 
+        onBarCodeScanned = {handleBarCodeScanned} style={styles.camera}
+        >
         <View style={styles.ButtonRow}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Icon name='refresh' size={40} color="white" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Icon name='camera' size={40} color="white" />
+            <Icon name='refresh' size={40} color="black" />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button} onPress={toggleFlashMode}>
             {flashMode === FlashMode.auto ? (
               <View style={styles.autoFlashIcon}>
                 <Text style={styles.autoText}>A </Text>
-                <Icon name='bolt' size={30} color='yellow' />
+                <Icon name='bolt' size={30} color='green' />
               </View>
             ) : (
-              <Icon name={getFlashIcon()} size={40} color={flashMode === FlashMode.on ? "yellow" : "white"} />
+              <Icon name={getFlashIcon()} size={40} color={flashMode === FlashMode.on ? "green" : "black"} />
             )}
           </TouchableOpacity>
         </View>
-      </Camera>
+      </BarCodeScanner>
       ):(
         <Text>Cargando cámara</Text>// Mostrar un mensaje mientras se activa la cámara
       )}
@@ -155,7 +176,7 @@ const styles = StyleSheet.create({
   },
   autoText: {
     fontSize: 18,
-    color: 'yellow',
+    color: 'green',
     marginLeft: -12,
     fontWeight: 'bold',
   },
