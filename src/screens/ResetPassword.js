@@ -16,7 +16,7 @@ export default function ResetPassword({navigation}){
  
   const handlePassword = async () => {
     await sendPasswordResetEmail(auth, email)
-    .then(() => alert("Código de recuperación de contraseña ha sido enviado al email"))
+    .then(() => Alert.alert('Código de recuperación de contraseña ha sido enviado al email'))
     .catch(error => {
       if (error.code === 'auth/missing-email') {
         Alert.alert('Por favor ingrese un correo');

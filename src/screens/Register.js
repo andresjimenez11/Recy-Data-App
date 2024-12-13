@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { 
-  View, ScrollView, TextInput, Text, StyleSheet, 
-  Dimensions, TouchableOpacity, KeyboardAvoidingView, 
-  Platform, TouchableWithoutFeedback, Keyboard, ImageBackground 
+  View, ScrollView, Text, KeyboardAvoidingView, 
+  Platform, ImageBackground 
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 /* Componentes */
-import ButtonRegister from '../components/ButtonRegister';
 import FormResidential from '../components/FormResidential';
-import FormPublicServant from '../components/FormPublicServant';
 import FormNoResidential from '../components/FormNoResidential';
-import FormAcademy from '../components/FormAcademy';
-import FormChain from '../components/FormChain';
-import FormConsultory from '../components/FormConsultory';
+
 import Overlay from '../components/Overlay';
 
 /* Estilos */
@@ -54,11 +49,11 @@ export default function Register({ navigation }) {
                       onValueChange={(itemValue) => setSelectedType(itemValue)}
                     >
                       <Picker.Item label="Residencial" value="Residencial"/>
-                      <Picker.Item label="Servidor Público" value="Servidor Público"/>
                       <Picker.Item label="No Residencial" value="No Residencial" />
+                      {/* <Picker.Item label="Servidor Público" value="Servidor Público"/>
                       <Picker.Item label="Academia" value="Academia" />
                       <Picker.Item label="Cadena de Aprovechamiento" value="Cadena de Aprovechamiento" />
-                      <Picker.Item label="Consultoría" value="Consultoría" />
+                      <Picker.Item label="Consultoría" value="Consultoría" /> */}
                     </Picker>
                     </View>
                   </View> 
@@ -67,12 +62,12 @@ export default function Register({ navigation }) {
                     <FormResidential/>
                   )}
 
-                  {selectedType === 'Servidor Público' && (
-                    <FormPublicServant/>
-                  )}
-
                   {selectedType === 'No Residencial' && (
                     <FormNoResidential/>
+                  )}
+
+                  {/* {selectedType === 'Servidor Público' && (
+                    <FormPublicServant/>
                   )}
 
                   {selectedType === 'Academia' && (
@@ -85,7 +80,7 @@ export default function Register({ navigation }) {
 
                   {selectedType === 'Consultoría' && (
                     <FormConsultory/>
-                  )}
+                  )} */}
                   
                 </ScrollView>
               </View>
