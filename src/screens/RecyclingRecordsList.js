@@ -25,7 +25,7 @@ export default function RecyclingList({ navigation, route }) {
 
       const recyclings = [];
       querySnapshot.docs.forEach(doc => {
-        const { recyclingType, weight, peopleNum, startDate,endDate } = doc.data();
+        const { recyclingType, weight, peopleNum, startDate,endDate,qrCodeData } = doc.data();
         recyclings.push({
           id: doc.id,
           recyclingType,
@@ -33,7 +33,8 @@ export default function RecyclingList({ navigation, route }) {
           peopleNum,
           startDate,
           endDate,
-          userId
+          userId,
+          qrCodeData
         });
       });
       setRecycling(recyclings);
@@ -104,11 +105,12 @@ export default function RecyclingList({ navigation, route }) {
                       <ListItem.Content>
                         <ListItem.Title>{strings.startDate}: {recyclinRecord.startDate}</ListItem.Title>
                         <ListItem.Title>{strings.endDate}:{recyclinRecord.endDate}</ListItem.Title>
-                        <ListItem.Subtitle>ID Usuario: {recyclinRecord.userId}</ListItem.Subtitle>
-                        <ListItem.Subtitle>ID: {recyclinRecord.id}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{strings.userID} {recyclinRecord.userId}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{strings.Id}: {recyclinRecord.id}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.weight}: {recyclinRecord.weight}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.number_of_people}: {recyclinRecord.peopleNum}</ListItem.Subtitle>
                         <ListItem.Subtitle>{strings.type}: {getRecyclingTypeLabel(recyclinRecord.recyclingType)}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{strings.scannedData}: {recyclinRecord.qrCodeData}</ListItem.Subtitle>
                       </ListItem.Content>
                     </ListItem>
                   );

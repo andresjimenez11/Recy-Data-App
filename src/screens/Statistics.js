@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet} from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const PAGEWEB = "https://www.google.com/"
+const PAGEWEB = "https://app.powerbi.com/view?r=eyJrIjoiOWQ2OTIyMTEtMDI0ZS00MDcwLTlhN2UtMzFjMDZjNmU0MTBkIiwidCI6ImI0OWRiNjI0LTI1NDYtNDI1OS1iZjM2LTE5OWM2ZTk4ODAzMyIsImMiOjR9"
 
 export default function Statistics(){
   return (

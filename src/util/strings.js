@@ -61,8 +61,12 @@ const strings = {
     confirm: "Confirmar",
     LoggingOut: "Cerrando sesión",
     endDate: 'Fecha final',
-    startDate: 'Fecha inicio'
-
+    startDate: 'Fecha inicio',
+    scannedData: 'Datos escaneados',
+    confirmDataPrompt: '¿Deseas continuar con estos datos?',
+    Id: 'Id',
+    userID: 'Id usuario',
+    scanQR: 'Escanear código QR'
 
     
 
