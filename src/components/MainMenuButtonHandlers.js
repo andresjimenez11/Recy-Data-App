@@ -55,7 +55,7 @@ export const handleRegisterRecycling = (navigation, userId) => {
               const auth = getAuth();
               signOut(auth).then(() => {
                 console.log("Cerrando sesión correctamente");
-                navigation.navigate('Main')
+                navigation.replace('Auth', 'Main')
               }).catch((error) =>{
                 console.log("Error durante el cierre de sesión", error)
               });              
