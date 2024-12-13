@@ -35,7 +35,7 @@ export default function FormNoResidential() {
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1 Norte');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-//   const [noPeople, setNoPeople] = useState('');
+ const [noPeople, setNoPeople] = useState(0);
   const [password, setPassword] = useState('');
 
   const [showPasswordHint, setShowPasswordHint] = useState(false);
@@ -88,7 +88,7 @@ export default function FormNoResidential() {
         selectedCity,
         phone,
         email,
-        //noPeople,
+        noPeople,
       });
 
       Alert.alert(
