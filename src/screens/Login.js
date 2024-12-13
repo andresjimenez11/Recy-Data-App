@@ -29,7 +29,7 @@ export default function Login(){
             console.log(user);
             const userId = user.uid; // Obtener el ID del usuario
             // Navegar a la pantalla 'MainMenu' y pasar el ID del usuario
-            navigation.navigate('App', {
+            navigation.replace('App', {
                 screen: 'MainMenu',
             params: {userId: userId}, // Pasar el ID como parámetro
             });
