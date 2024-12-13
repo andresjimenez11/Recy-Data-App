@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 import formStyles from '../styles/formStyles';
@@ -35,8 +35,10 @@ export default function FormNoResidential() {
   const [selectedCommune, setSelectedCommune] = useState('Comuna 1 Norte');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [noPeople, setNoPeople] = useState('');
+//   const [noPeople, setNoPeople] = useState('');
   const [password, setPassword] = useState('');
+
+  const [showPasswordHint, setShowPasswordHint] = useState(false);
 
   const handleCreateAccount = async () => {
 
@@ -50,7 +52,6 @@ export default function FormNoResidential() {
         !n3.trim() ||
         !phone.trim() ||
         !email.trim() ||
-        !noPeople.trim() ||
         !password.trim()
       ) {
         // Mostrar mensaje de error si falta algún campo
@@ -87,7 +88,7 @@ export default function FormNoResidential() {
         selectedCity,
         phone,
         email,
-        noPeople,
+        //noPeople,
       });
 
       Alert.alert(
@@ -305,7 +306,7 @@ export default function FormNoResidential() {
                 />
             </View>
 
-            <View style={formStyles.containerForm}>
+            {/* <View style={formStyles.containerForm}>
                 <TextInput
                     onChangeText={(text) => setNoPeople(text)}
                     style={formStyles.input}
@@ -313,58 +314,34 @@ export default function FormNoResidential() {
                     placeholderTextColor={colors.primary}
                     keyboardType='numeric'
                 />
-            </View>
+            </View> */}
 
+            {showPasswordHint && (
+                 <View style={formStyles.containerForm}>
+                    <Text style={formStyles.hintText}>
+                        La contraseña debe tener al menos 8 caracteres, incluyendo una letra, un número y un carácter especial.
+                    </Text>
+                </View>
+            )}
+            
             <View style={formStyles.containerForm}>
                 <TextInput
-                    onChangeText={(text) => setPassword(text)}
-                    style={[formStyles.input, formStyles.inputPassword]}
-                    placeholder="Contraseña"
-                    placeholderTextColor={colors.primary}
-                    secureTextEntry
+                onChangeText={(text) => setPassword(text)}
+                onFocus={() => setShowPasswordHint(true)}
+                onBlur={() => setShowPasswordHint(false)}
+                style={[formStyles.input, formStyles.inputPassword]}
+                placeholder="Contraseña"
+                placeholderTextColor={colors.primary}
+                secureTextEntry
                 />
             </View>
 
-            <View style={styles.containerForm}>
-                <TouchableOpacity style={styles.registerButton} onPress={handleCreateAccount}>
-                    <Text style={styles.registerButtonText}>{strings.registered}</Text>
+            <View style={formStyles.containerFormButton}>
+                <TouchableOpacity style={formStyles.registerButton} onPress={handleCreateAccount}>
+                    <Text style={formStyles.registerButtonText}>{strings.registered}</Text>
                 </TouchableOpacity>
             </View>
         </View>
 
     );
 }
-
-const styles = StyleSheet.create({
-    containerForm: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: 40,
-      },
-    registerButton: {
-        width: '62%',
-        paddingVertical: '6%',
-        marginBottom: '13%',
-        borderRadius: 15,
-        backgroundColor: '#609800',
-        alignItems: 'center',
-
-        /* Sombras */
-        shadowColor: '#000', 
-        shadowOffset: {
-          width: 0,
-          height: 3, 
-        },
-        shadowOpacity: 0.2, 
-        shadowRadius: 5, 
-    
-        elevation: 5, 
-    },
-    registerButtonText: {
-        fontSize: 19,
-        color: '#FFFFFF',
-        fontFamily: 'Comfortaa',
-    },
-})

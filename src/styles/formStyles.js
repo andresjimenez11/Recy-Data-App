@@ -20,7 +20,7 @@ const formStyles = StyleSheet.create({
         marginVertical: 5,
         borderRadius: 10,
         fontSize: 16,
-        fontFamily: 'Comfortaa'
+        //fontFamily: 'Comfortaa'
       },
       inputAddress: {
         width: '40%',
@@ -97,6 +97,50 @@ const formStyles = StyleSheet.create({
         padding: 10,
         fontFamily: 'Comfortaa',
       }, 
+
+
+      containerFormButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 40,
+      },
+      registerButton: {
+          width: '62%',
+          paddingVertical: '6%',
+          marginBottom: '13%',
+          borderRadius: 15,
+          backgroundColor: '#609800',
+          alignItems: 'center',
+
+          /* Sombras */
+          shadowColor: '#000', 
+          shadowOffset: {
+            width: 0,
+            height: 3, 
+          },
+          shadowOpacity: 0.2, 
+          shadowRadius: 5, 
+      
+          elevation: 5, 
+      },
+      registerButtonText: {
+          fontSize: 19,
+          color: '#FFFFFF',
+          fontFamily: 'Comfortaa',
+      },
+
+
+      hintText: {
+        color: '#ffffff',
+        fontSize: 14,
+        marginVertical: 7,
+        backgroundColor: '#ec5353',
+        padding: 8,
+        borderRadius: 8,
+        width: '100%'
+      },
 })
 
 export default formStyles;
