@@ -16,6 +16,9 @@ export default function CameraScreen({ navigation, route }) {
   const [isScanning, setIsScanning] = useState(true);
   const userId = route.params?.userId;
   console.log("User ID recibido desde route:", userId);
+  const wasteType = route.params?.wasteType;
+  console.log("tipo de generador camara: :", wasteType);
+  
   const [qrCodeData, setQrCodeData] = useState(null);
 
   useEffect(() => {
@@ -94,7 +97,7 @@ export default function CameraScreen({ navigation, route }) {
           text: strings.confirm,
           onPress: () => {
             //Navega al registro de reciclaje
-            navigation.navigate('RecyclingRecords', {userId, qrCodeData: data});
+            navigation.navigate('RecyclingRecords', {userId, wasteType, qrCodeData: data});
 
           },          
         },

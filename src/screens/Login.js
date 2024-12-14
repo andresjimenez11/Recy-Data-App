@@ -9,6 +9,7 @@ import Overlay from '../components/Overlay';
 import strings from '../util/strings';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase-config';
+import firebase from '../database/firebase.js';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 
@@ -21,22 +22,42 @@ export default function Login(){
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
 
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+    const handleSignIn = async () => {
+        try {
+
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log('Sesión iniciada');
             const user = userCredential.user;
             console.log(user);
             const userId = user.uid; // Obtener el ID del usuario
-            // Navegar a la pantalla 'MainMenu' y pasar el ID del usuario
-            navigation.replace('App', {
-                screen: 'MainMenu',
-            params: {userId: userId}, // Pasar el ID como parámetro
-            });
-        })
-        .catch(error => {
+            console.log('Id del usuario: ', userId);
+
+            // Obtener el documento del usuario desde Firestore usando userId
+            const querySnapshot = await firebase.db
+                .collection('usuarios')
+                .where('userId', '==', userId)
+                .get();
+
+            if (!querySnapshot.empty){
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    console.log('Datos del documento: ', data);
+                    const wasteType = data.selectedType;
+                    console.log('Login: Tipo de generador; ', wasteType);
+
+                    // Navegar a la pantalla 'MainMenu' y pasar el ID del usuario
+                    navigation.replace('App', {
+                    screen: 'MainMenu',
+                    params: {userId: userId, wasteType}, // Pasar el ID como parámetro
+                    });
+
+                });
+            }else{
+                console.log('El documento del usuario no exite');
+            }            
+        } catch(error){
             if (error.code === 'auth/invalid-credential') {
-                Alert.alert('El correo o la contraseña no es válida.');
+                Alert.alert('El correo o la contraseña no es válida.', error);
             } 
             else if (error.code === 'auth/invalid-email') {
                 Alert.alert('Ingrese un correo válido.');
@@ -46,9 +67,10 @@ export default function Login(){
             }        
             else {
             Alert.alert('Error', 'No se pudo iniciar sesión, intente nuevamente.');
+            console.log(error)
             }
-        })
-    }
+        }
+    };
 
     return (
         

@@ -29,7 +29,7 @@ export default function Main({ navigation, route }) {
 
   // Obtener el tipo de generador de residuos (residencial o no residencial)
   const wasteType = route.params?.wasteType; // 'residencial'  o 'no residencial'
-  console.log('Tipo de generador de residuos: ', wasteType);
+  console.log('recor Tipo de generador de residuos: ', wasteType);
 
   // Establece la ubicación cuando la recibes del componente Location
   const handleLocationRetrieved = (location) => {
@@ -77,7 +77,7 @@ export default function Main({ navigation, route }) {
 
   const openCamera = async () => {
     console.log("Navegando a la pantalla de la cámara...");
-    navigation.navigate('Camera',{userId});
+    navigation.navigate('Camera',{userId, wasteType});
   };
 
   const onStartDateChange = (event, selectedDate) => {
@@ -127,7 +127,7 @@ export default function Main({ navigation, route }) {
           'Información de almacenaje',
           strings.saved, 
           [
-            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList',{userId})},
+            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList',{userId,wasteType})},
           ],
           {cancelable: false}
         );
@@ -192,7 +192,7 @@ export default function Main({ navigation, route }) {
                 onChangeText={(value) => handleChangeText('weight', value)}
               />
 
-              {wasteType === 'residencial' && (
+              {wasteType === 'Residencial' && (
                 <>
                   <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
                   <TextInput 
