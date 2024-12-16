@@ -10,6 +10,7 @@ import { handleRegisterRecycling } from '../components/MainMenuButtonHandlers.js
 
 export default function RecyclingList({ navigation, route }) {
   const { userId } = route.params;
+  const {wasteType} = route.params;
   
   const [recycling, setRecycling] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,7 @@ export default function RecyclingList({ navigation, route }) {
   // Cargar los datos cuando el componente se monta o cuando cambia el userId
   useEffect(() => {
     console.log('User ID received in RecyclingList:', userId);
+    console.log('tipogenerador list:', wasteType);
     fetchData(); // Llamar a la función para obtener los datos
   }, [userId]); // Dependencia en el userId para recargar los datos si cambia
 
@@ -125,7 +127,7 @@ export default function RecyclingList({ navigation, route }) {
       <View style={mainStyles.bottomWhiteSection}>
         <TouchableOpacity 
           style={[MainMenuButtonStyles.button, MainMenuButtonStyles.buttonStyle]}
-          onPress={() => handleRegisterRecycling(navigation, userId)}
+          onPress={() => handleRegisterRecycling(navigation, userId, wasteType)}
         >
           <Text style={MainMenuButtonStyles.buttonText}>{strings.registerRecycling}</Text>
         </TouchableOpacity>

@@ -27,6 +27,10 @@ export default function Main({ navigation, route }) {
   const qrCodeData = route.params?.qrCodeData;
   console.log('DAtos QR recibidos: ', qrCodeData)
 
+  // Obtener el tipo de generador de residuos (residencial o no residencial)
+  const wasteType = route.params?.wasteType; // 'residencial'  o 'no residencial'
+  console.log('recor Tipo de generador de residuos: ', wasteType);
+
   // Establece la ubicación cuando la recibes del componente Location
   const handleLocationRetrieved = (location) => {
     setLocation(location);
@@ -35,7 +39,7 @@ export default function Main({ navigation, route }) {
 
   const [state, setState] = useState({
     weight: "",
-    peopleNum: "",
+    peopleNum: wasteType === 'residencial' ? "" : 0, // Si es no residencial, se inicializa con 0
     recyclingType: 1,
     startDate: new Date().toLocaleDateString(), // Fecha inicial
     endDate: new Date().toLocaleDateString(), // Fecha final
@@ -61,7 +65,7 @@ export default function Main({ navigation, route }) {
     console.log(`Botón de imagen ${index} presionado`);
     setState({
       weight: "",        // Limpiar el campo de peso
-      peopleNum: "",     // Limpiar el campo de número de personas
+      peopleNum: wasteType === 'residencial' ? "" : 0,     // Limpiar el campo de número de personas según el tipo
       recyclingType: index, // Establecer el tipo de reciclaje
       startDate: new Date().toLocaleDateString(), // Restablecer la fecha inicial
       endDate: new Date().toLocaleDateString(), // Restablecer la fecha final
@@ -73,7 +77,7 @@ export default function Main({ navigation, route }) {
 
   const openCamera = async () => {
     console.log("Navegando a la pantalla de la cámara...");
-    navigation.navigate('Camera',{userId});
+    navigation.navigate('Camera',{userId, wasteType});
   };
 
   const onStartDateChange = (event, selectedDate) => {
@@ -123,7 +127,7 @@ export default function Main({ navigation, route }) {
           'Información de almacenaje',
           strings.saved, 
           [
-            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList',{userId})},
+            {text: 'OK', onPress: () => navigation.navigate('RecyclingRecordsList',{userId,wasteType})},
           ],
           {cancelable: false}
         );
@@ -188,14 +192,18 @@ export default function Main({ navigation, route }) {
                 onChangeText={(value) => handleChangeText('weight', value)}
               />
 
-              <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
-              <TextInput 
-                placeholder={strings.number_of_people}
-                style={mainStyles.input}
-                keyboardType='numeric'
-                value={state.peopleNum}
-                onChangeText={(value) => handleChangeText('peopleNum', value)}
-              />
+              {wasteType === 'Residencial' && (
+                <>
+                  <Text style={mainStyles.label}>{strings.peopleLabel}</Text>
+                  <TextInput 
+                  placeholder={strings.number_of_people}
+                  style={mainStyles.input}
+                  keyboardType='numeric'
+                  value={state.peopleNum}
+                  onChangeText={(value) => handleChangeText('peopleNum', value)}
+                  />
+                </>
+              )}           
 
               {/* Fecha inicial */}
               <View style={mainStyles.dateContainer}>

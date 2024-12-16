@@ -9,11 +9,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function MainMenu({ route, navigation }) {
   // Obtener el ID del usuario desde los parámetros de navegación
   const {userId } = route.params;
+  const {wasteType} = route.params;
 
   // Mostrar el ID del usuario
   useEffect(() => {
     console.log('Id del ususario: ', userId);
-  }, [userId]);
+    console.log('mainmenu generado recibido: ', wasteType);
+  }, [userId,wasteType]);
 
   return (
     <View style={MainMenuButtonStyles.container}>
@@ -52,7 +54,7 @@ export default function MainMenu({ route, navigation }) {
         <View style={MainMenuButtonStyles.ButtonRow}>
           <TouchableOpacity 
             style={[MainMenuButtonStyles.buttonStyle, MainMenuButtonStyles.button]}
-            onPress={() => handleRegisterRecyclingList(navigation, userId)}            
+            onPress={() => handleRegisterRecyclingList(navigation, userId, wasteType)}            
             >
               <Icon name='recycle' size={40} color={"white"}></Icon>
               <Text style={MainMenuButtonStyles.buttonText}>{strings.registerRecycling}</Text>

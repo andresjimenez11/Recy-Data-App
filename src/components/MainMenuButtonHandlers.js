@@ -3,16 +3,16 @@ import { useNavigation } from '@react-navigation/native';
 import strings from '../util/strings'
 import { getAuth, signOut } from 'firebase/auth';
 
-export const handleRegisterRecycling = (navigation, userId) => {
+export const handleRegisterRecycling = (navigation, userId, wasteType ) => {
     // Lógica para navegar a la pantalla de registro de reciclaje
     console.log("Botón Registro reciclaje")
-    navigation.navigate('RecyclingRecords', {userId});
+    navigation.navigate('RecyclingRecords', {userId, wasteType });
   };
 
-  export const handleRegisterRecyclingList = (navigation, userId) => {
+  export const handleRegisterRecyclingList = (navigation, userId, wasteType) => {
     // Lógica para navegar a la pantalla de acerca de
     console.log("Lista de registros")
-    navigation.navigate('RecyclingRecordsList', {userId}); // Pasar userId como parámetro
+    navigation.navigate('RecyclingRecordsList', {userId, wasteType }); // Pasar userId como parámetro
   };
   
   
