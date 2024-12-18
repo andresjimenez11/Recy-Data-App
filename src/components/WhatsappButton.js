@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 5,
         elevation: 3,
+        zIndex: 999,
     },
     whatsappButton: {
         backgroundColor: '#25D366',
