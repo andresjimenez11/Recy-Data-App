@@ -44,7 +44,6 @@ export default function Main({navigation}){
           
         </View>
 
-        <WhatsappButton/>
       </View>
     )
 }
