@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase-config';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import WhatsappButton from '../components/WhatsappButton';
 
 export default function ResetPassword({navigation}){
   
@@ -68,6 +69,8 @@ export default function ResetPassword({navigation}){
           style={resetPasswordStyles.image}/>
         </View>
       </View>
+
+      <WhatsappButton/>
       </KeyboardAvoidingView>
     )
 }
