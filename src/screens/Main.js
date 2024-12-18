@@ -4,6 +4,7 @@ import mainStyles from '../styles/mainStyles';
 import ButtonRegister from '../components/ButtonRegister';
 import ForgotPassword from '../components/ForgotPassword';
 import Overlay from '../components/Overlay';
+import WhatsappButton from '../components/WhatsappButton';
 
 import strings from '../util/strings';
 import ButtonLgMain from '../components/ButtonLgMain';
@@ -42,6 +43,8 @@ export default function Main({navigation}){
           <ForgotPassword/>
           
         </View>
+
+        <WhatsappButton/>
       </View>
     )
 }
