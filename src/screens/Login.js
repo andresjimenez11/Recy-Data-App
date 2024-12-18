@@ -1,11 +1,11 @@
-import { View, ImageBackground, TextInput, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity, Alert} from 'react-native';
+import { View, ImageBackground, TextInput, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity, Alert, StyleSheet, Linking} from 'react-native';
 import React, {useState} from 'react'
 import loginStyles from '../styles/loginStyles';
 import ButtonLogin from '../components/ButtonLogin';
 import ButtonRegister from '../components/ButtonRegister';
-import ButtonResetPassword from '../components/ButtonResetPassword';
 import ForgotPassword from '../components/ForgotPassword';
 import Overlay from '../components/Overlay';
+import WhatsappButton from '../components/WhatsappButton.js';
 import strings from '../util/strings';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase-config';
@@ -121,18 +121,20 @@ export default function Login(){
         
                 <View style={loginStyles.bottomWhiteSection}>
 
-                <View style={loginStyles.buttonsContainer}>
-          
-                    <ButtonLogin 
-                        handle={handleSignIn}
-                    />
+                    <View style={loginStyles.buttonsContainer}>
+            
+                        <ButtonLogin 
+                            handle={handleSignIn}
+                        />
 
-                    <ButtonRegister/>
-                
-                </View>
+                        <ButtonRegister/>
+                    
+                    </View>
 
                 </View>
+                <WhatsappButton/>
             </View>
+
         </KeyboardAvoidingView>
   
     )

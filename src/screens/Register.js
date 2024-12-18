@@ -8,8 +8,8 @@ import { Picker } from '@react-native-picker/picker';
 /* Componentes */
 import FormResidential from '../components/FormResidential';
 import FormNoResidential from '../components/FormNoResidential';
-
 import Overlay from '../components/Overlay';
+import WhatsappButton from '../components/WhatsappButton';
 
 /* Estilos */
 import registerStyles from '../styles/registerStyles';
@@ -96,6 +96,9 @@ export default function Register({ navigation }) {
           {/* <View style={registerStyles.buttonsContainer}>
               <ButtonRegister />
           </View> */}
+
+          <WhatsappButton/>
+
         </View>
 
     </KeyboardAvoidingView>
