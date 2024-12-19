@@ -57,7 +57,7 @@ export default function Login(){
             }            
         } catch(error){
             if (error.code === 'auth/invalid-credential') {
-                Alert.alert('El correo o la contraseña no es válida.', error);
+                Alert.alert('El correo o la contraseña no es válida.');
             } 
             else if (error.code === 'auth/invalid-email') {
                 Alert.alert('Ingrese un correo válido.');
